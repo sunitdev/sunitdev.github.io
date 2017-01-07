@@ -19,28 +19,6 @@ jQuery(document).ready(function(){
 	  $logo.fadeOut('slow');
 	});	
 
-	/* ---------------------------------------------------------------------- */
-	/*	About
-	/* ---------------------------------------------------------------------- */
-	
-	// Profile Photo Slider
-	 $(".photo-inner ul").carouFredSel({
-        direction           : "left",
- 	    circular: true,
-        auto    			: true,
-        scroll 			: {
-            items           : 1,
-            fx 				: 'crossfade',
-            duration        : 1500,                        
-            wipe    		: true
-        },
-	    swipe: {
-	        onTouch: true
-	    },
-        items: {
-            width: 153
-        }           
-    });
 	 
 	/* ---------------------------------------------------------------------- */
 	/*	Menu
@@ -103,38 +81,15 @@ jQuery(document).ready(function(){
         }           
     });
 
-	/* --------------------------------------------- */
-	/* Filtering ------------------------------------*/
-	/* ----------------------------------------------*/
-	var options = {
-   animationDuration: 0.5, //in seconds
-   filter: 'all', //Initial filter
-   callbacks: { 
-      onFilteringStart: function() { },
-      onFilteringEnd: function() { },
-      onShufflingStart: function() { },
-      onShufflingEnd: function() { },
-      onSortingStart: function() { },
-      onSortingEnd: function() { }
-   },
-   delay: 0, //Transition delay in ms
-   delayMode: 'progressive', //'progressive' or 'alternate'
-   easing: 'ease-out',
-   filterOutCss: { //Filtering out animation
-      opacity: 0,
-      transform: 'scale(0.5)'
-   },
-   filterInCss: { //Filtering in animation
-      opacity: 0,
-      transform: 'scale(1)'
-   },
-   layout: 'sameSize', //See layouts
-   selector: '.filtr-container',
-   setupControls: true 
-} 
-//You can override any of these options and then call...
-var filterizd = $('.filtr-container').filterizr(options);
-//If you have already instantiated your Filterizr then call...
-filterizd.filterizr('setOptions', options);
+	/* ---------------------------------------------------------------------- */
+	/*	Analystics
+	/* ---------------------------------------------------------------------- */
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  	ga('create', 'UA-89884618-1', 'auto');
+  	ga('send', 'pageview');
 
 });	
