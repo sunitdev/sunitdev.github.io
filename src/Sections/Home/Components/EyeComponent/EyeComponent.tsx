@@ -3,12 +3,35 @@ import * as ReactDOM from 'react-dom';
 
 import styled from 'styled-components';
 
-import ScleraComponent from './ScleraComponent';
-import IrisComponent from './IrisComponent';
-import PupliComponent from './PupliComponent';
+import { ScleraComponent } from './ScleraComponent';
+import { IrisComponent } from './IrisComponent';
+import { PupliComponent } from './PupilComponent';
 
 
-// Props Interface
+// Interface to store x,y point
+interface IPoint{
+    x: number;
+    y: number;
+}
+
+// Container interface and component
+interface IContainer {
+    width: string;
+    height: string;
+}
+
+const Container = styled.div<IContainer>`
+    width: ${(props: any) => props.width};
+    height: ${(props: any) => props.height};
+
+    position: relative;
+
+    margin-left: 10px;
+    margin-right: 10px;
+`;
+
+
+// Eyes Props Interface
 interface IEyeComponentProps {
     height?: string;
     width?: string;
@@ -19,6 +42,7 @@ interface IEyeComponentProps {
     }
 }
 
+// Eyes state Interface
 interface IEyeComponentState {
     irisComponent?: {
         centerX: number;
@@ -30,79 +54,6 @@ interface IEyeComponentState {
     }
 }
 
-interface IContainer {
-    width: string;
-    height: string;
-}
-
-interface IStyledIrisComponent {
-    left?: number | string;
-    top?: number | string;
-
-    style?: any;
-}
-
-interface IStyledPupilComponent {
-    left?: number | string;
-    top?: number | string;
-}
-
-
-interface IPoint{
-    x: number;
-    y: number;
-}
-
-// Styled Components
-const Container = styled.div<IContainer>`
-    width: ${(props: any) => props.width};
-    height: ${(props: any) => props.height};
-
-    position: relative;
-
-    margin-left: 10px;
-    margin-right: 10px;
-`;
-
-const StyledScleraComponent = styled(ScleraComponent)`
-    width: 100%;
-    height: 100%;
-
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-
-`;
-
-const StyledIrisComponent = styled(IrisComponent)<IStyledIrisComponent>`
-    width: 50%;
-    height: 50%;
-
-    position: absolute;
-
-    left: ${(props: any) => props.left || 0};
-    right: 0;
-    top: ${(props: any) => props.top || 0};
-    bottom: 0;
-    margin: auto;
-`;
-
-const StyledPupliComponent = styled(PupliComponent)<IStyledPupilComponent>`
-    width: 25%;
-    height: 25%;
-
-    position: absolute;
-
-    left: ${(props: any) => props.left || 0};
-    right: 0;
-    top: ${(props: any) => props.top || 0};
-    bottom: 0;
-    margin: auto;
-`;
 
 export default class EyeComponent extends React.Component<IEyeComponentProps, IEyeComponentState> {
 
@@ -111,25 +62,30 @@ export default class EyeComponent extends React.Component<IEyeComponentProps, IE
         height: '200px'
     }
 
-    private irisComponentRef: IrisComponent;
-    private pupliComponentRef: PupliComponent;
+    private irisComponentRef: any;
+    private pupliComponentRef: any;
 
     constructor(props: IEyeComponentProps, context: IEyeComponentProps) {
         super(props, context);
 
+        // Init state
         this.state = {};
     }
 
 
+    /**
+     * On mount save the location of iris and pupli component
+     */
     componentDidMount() {
 
-        const irishCenter: IPoint = this.getCenterOfComponent(this.irisComponentRef);
+        // Center center of components
+        const irisCenter: IPoint = this.getCenterOfComponent(this.irisComponentRef);
         const pupliCenter: IPoint = this.getCenterOfComponent(this.pupliComponentRef);
 
         this.setState({
             irisComponent: {
-                centerX: irishCenter.x,
-                centerY: irishCenter.y
+                centerX: irisCenter.x,
+                centerY: irisCenter.y
             },
 
             pupliComponent: {
@@ -140,7 +96,65 @@ export default class EyeComponent extends React.Component<IEyeComponentProps, IE
 
     }
 
+    render() {
 
+        // Compute location of iris based on mouse position
+        let irisPosition;
+        if(this.state.irisComponent){
+            irisPosition = this.computePositionRelativeToMouse({
+                x: this.state.irisComponent.centerX,
+                y: this.state.irisComponent.centerY
+            });
+        }else{
+            irisPosition = {
+                left: 0,
+                top: 0
+            }
+        }
+
+        // Compute location of pupli based on mouse location
+        let pupliPosition;
+        if(this.state.pupliComponent){
+            pupliPosition = this.computePositionRelativeToMouse({
+                x: this.state.pupliComponent.centerX,
+                y: this.state.pupliComponent.centerY
+            });
+        }else {
+            pupliPosition = {
+                left: 0,
+                top: 0
+            }
+        }
+
+        return (
+            <Container
+                height={this.props.height}
+                width={this.props.width}>
+
+                <ScleraComponent />
+
+                <IrisComponent
+                    left={irisPosition.left}
+                    top={irisPosition.top}
+                    ref={(irisComponent) => this.irisComponentRef = irisComponent} />
+
+                <PupliComponent
+                    left={pupliPosition.left}
+                    top={pupliPosition.top}
+                    ref={(pupliComponent) => this.pupliComponentRef = pupliComponent} />
+
+            </Container>
+        );
+    }
+
+
+    // Pirvate methods
+
+    /**
+     * Return location of center point of the component
+     *
+     * @param element React Component
+     */
     private getCenterOfComponent(element: React.Component): IPoint {
 
         const boundRect = (ReactDOM.findDOMNode(element) as any).getBoundingClientRect();
@@ -152,6 +166,12 @@ export default class EyeComponent extends React.Component<IEyeComponentProps, IE
     }
 
 
+    /**
+     * Return relative percentage (between -100% to 100%) distance between the point
+     *
+     * @param point1 Location of point1
+     * @param point2 Location of point2
+     */
     private getRelativePercentageBetweenPoints(point1: IPoint, point2: IPoint): IPoint{
 
         const sectionWidth: number = point1.x >= point2.x ? point2.x : window.innerWidth - point1.x;
@@ -169,6 +189,11 @@ export default class EyeComponent extends React.Component<IEyeComponentProps, IE
         }
     }
 
+    /**
+     * Return how far in percentage the component has to move (top and left) compare to current mouse position
+     *
+     * @param componentCenter Center point of a component
+     */
     private computePositionRelativeToMouse(componentCenter: IPoint): { left: string, top: string } {
 
         // Default position
@@ -194,54 +219,5 @@ export default class EyeComponent extends React.Component<IEyeComponentProps, IE
             left: `${Math.round(relativePercentage.x)}%`,
             top: `${Math.round(relativePercentage.y)}%`
         }
-    }
-
-    render() {
-
-        let irisPosition;
-        if(this.state.irisComponent){
-            irisPosition = this.computePositionRelativeToMouse({
-                x: this.state.irisComponent.centerX,
-                y: this.state.irisComponent.centerY
-            });
-        }else{
-            irisPosition = {
-                left: 0,
-                top: 0
-            }
-        }
-
-        let pupliPosition;
-        if(this.state.pupliComponent){
-            pupliPosition = this.computePositionRelativeToMouse({
-                x: this.state.pupliComponent.centerX,
-                y: this.state.pupliComponent.centerY
-            });
-        }else {
-            pupliPosition = {
-                left: 0,
-                top: 0
-            }
-        }
-
-        return (
-            <Container
-                height={this.props.height}
-                width={this.props.width}>
-
-                <StyledScleraComponent />
-
-                <StyledIrisComponent
-                    left={irisPosition.left}
-                    top={irisPosition.top}
-                    ref={(irisComponent) => this.irisComponentRef = irisComponent} />
-
-                <StyledPupliComponent
-                    left={pupliPosition.left}
-                    top={pupliPosition.top}
-                    ref={(pupliComponent) => this.pupliComponentRef = pupliComponent} />
-
-            </Container>
-        );
     }
 }
