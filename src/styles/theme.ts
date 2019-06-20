@@ -4,7 +4,7 @@ const AppTheme: DefaultTheme = {
 
     colors: {
         backgroundPrimary: '#243F47',
-        backgroundSecondary: '#32A5E1',
+        backgroundSecondary: '#172E3C',
 
         textPrimary: '#FFFFFF',
         textHeadingPrimary: '#EAD83C',
