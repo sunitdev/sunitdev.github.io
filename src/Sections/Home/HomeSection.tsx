@@ -12,21 +12,14 @@ interface IHomeSectionState {
     };
 }
 
+interface IHomeSectionProps {
+    className?: any;
+}
 
-const Container = styled.div`
-    height: 100%;
-    width: 100%;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-`;
-
-export default class HomeSection extends React.Component<any, IHomeSectionState> {
+export default class HomeSection extends React.Component<IHomeSectionProps, IHomeSectionState> {
 
 
-    constructor(props?: any, context?: IHomeSectionState){
+    constructor(props?: IHomeSectionProps, context?: IHomeSectionState){
         super(props, context);
 
         this.state = {
@@ -52,14 +45,8 @@ export default class HomeSection extends React.Component<any, IHomeSectionState>
 
     render(){
         return (
-            <Container
-                onMouseMove={this.onMouseMove}>
-                <EyeComponent
-                    mousePosition={this.state.mousePosition}/>
-                <EyeComponent
-                    mousePosition={this.state.mousePosition}/>
-            </Container>
-        );
+            <h1 className={this.props.className}>Home Component</h1>
+       );
     }
 
 }
