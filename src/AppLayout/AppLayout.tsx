@@ -6,6 +6,13 @@ import DevilCharacterComponent from '../Sections/Common/Components/Devil/DevilCh
 import HomeSection from '../Sections/Home/HomeSection';
 import ProjectSection from '../Sections/Projects/ProjectSection';
 
+const StyledDevilCharacter = styled(DevilCharacterComponent)`
+    width: 100%;
+    height: 100vmax;
+
+    margin-top: 60px;
+`;
+
 const StyledHomeSection = styled(HomeSection)`
     height: 100vh;
 `;
@@ -18,8 +25,12 @@ export default class AppLayout extends React.Component {
 
     render(){
         return (
-            <DevilCharacterComponent/>
-        );
+        <StyledDevilCharacter>
+            <StyledHomeSection/>
+            {/* <StyledProjectSection/> */}
+        </StyledDevilCharacter>
+
+);
     }
 
 }

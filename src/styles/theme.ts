@@ -8,7 +8,9 @@ const AppTheme: DefaultTheme = {
 
         textPrimary: '#FFFFFF',
         textHeadingPrimary: '#EAD83C',
-        textHeadingSecondary: '#E75151'
+        textHeadingSecondary: '#E75151',
+
+        defaultButtonColor: '#EAD83C'
     },
 
     text: {

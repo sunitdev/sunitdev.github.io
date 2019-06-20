@@ -20,6 +20,8 @@ const Body = styled.div`
     background-color: ${(props: any) => props.theme.colors.backgroundSecondary};
 
     box-shadow: inset 0 0 5px white, 0 0 5px black;
+
+    z-index: -100;
 `;
 
 const LeftEar = styled.div`
@@ -37,6 +39,8 @@ const LeftEar = styled.div`
     background-color: ${(props: any) => props.theme.colors.backgroundSecondary};
 
     box-shadow: inset 0 0 5px white, 0 0 5px black;
+
+    z-index: -200;
 `;
 
 const RightEar = styled.div`
@@ -54,17 +58,24 @@ const RightEar = styled.div`
     background-color: ${(props: any) => props.theme.colors.backgroundSecondary};
 
     box-shadow: inset 0 0 5px white, 0 0 5px black;
+
+    z-index: -200;
 `;
 
 
-export default class DevilCharacterComponent extends React.Component {
+interface IDevilCharacterComponentProps {
+    className?: string;
+}
+
+export default class DevilCharacterComponent extends React.Component<IDevilCharacterComponentProps, any> {
 
     render(){
         return (
-            <Container>
+            <Container className={this.props.className}>
                 <LeftEar/>
                 <RightEar/>
                 <Body/>
+                {this.props.children}
             </Container>
         );
     }

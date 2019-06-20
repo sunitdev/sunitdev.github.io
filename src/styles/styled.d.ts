@@ -11,6 +11,8 @@ declare module 'styled-components' {
             textPrimary: string;
             textHeadingPrimary: string;
             textHeadingSecondary: string;
+
+            defaultButtonColor: string;
         },
 
         text: {
