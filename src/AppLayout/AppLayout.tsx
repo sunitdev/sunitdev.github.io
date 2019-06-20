@@ -8,7 +8,7 @@ import ProjectSection from '../Sections/Projects/ProjectSection';
 
 const StyledDevilCharacter = styled(DevilCharacterComponent)`
     width: 100%;
-    height: 100vmax;
+    height: 200vh;
 
     margin-top: 60px;
 `;
