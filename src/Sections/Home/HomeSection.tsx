@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 
 import * as FontAwesome from 'react-icons/lib/fa';
 
@@ -90,6 +90,34 @@ const GithubIcon = styled(FontAwesome.FaGithub)`
 `;
 
 
+const BounceAnimation = keyframes`
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-25px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
+`;
+
+
+const ScrollDownIcon = styled(FontAwesome.FaArrowDown)`
+    color: white;
+
+    font-size: 2em;
+
+    margin-top: 1em;
+
+    animation: ${BounceAnimation} 2s infinite;
+
+    @media (min-width: 992px){
+        margin-top: 1.5em;
+    }
+`;
+
+
 interface IHomeSectionState {
     mousePosition: {
         x: number;
@@ -161,6 +189,7 @@ export default class HomeSection extends React.Component<IHomeSectionProps, IHom
                         onClick={this.onLinkedInButtonClicked}/>
                 </ButtonBar>
 
+                <ScrollDownIcon/>
             </Container>
        );
     }
