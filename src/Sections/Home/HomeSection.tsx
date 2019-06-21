@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 import * as FontAwesome from 'react-icons/lib/fa';
 
-import AppButton from '../Common/Components/AppButton/AppButton';
 
+import AppButton from '../Common/Components/AppButton/AppButton';
 import EyeComponent from './Components/EyeComponent/EyeComponent';
 
 
@@ -35,17 +35,25 @@ const StyledEyeComponent = styled(EyeComponent)`
 const NameText = styled.h1`
     color: ${(props: any) => props.theme.colors.textHeadingPrimary};
 
-    font-size: 3em;
+    font-size: 2em;
 
     margin: 1em 0px;
+
+    @media (min-width: 992px){
+        font-size: 3em;
+    }
 `;
 
 const BioText = styled.p`
-    font-size: 2em;
+    font-size: 1em;
 
     text-align: center;
 
     margin: 0px 0px 2em 0px;
+
+    @media (min-width: 992px){
+        font-size: 2em;
+    }
 `;
 
 const ButtonBar = styled.div`

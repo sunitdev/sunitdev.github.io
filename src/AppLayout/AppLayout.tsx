@@ -7,10 +7,11 @@ import HomeSection from '../Sections/Home/HomeSection';
 import ProjectSection from '../Sections/Projects/ProjectSection';
 
 const StyledDevilCharacter = styled(DevilCharacterComponent)`
-    width: 100%;
+    width: 80%;
     height: 200vh;
 
-    margin-top: 60px;
+    margin: auto;
+    margin-top: 20px;
 `;
 
 const StyledHomeSection = styled(HomeSection)`
