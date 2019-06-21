@@ -27,7 +27,7 @@ export default class AppLayout extends React.Component {
         return (
         <StyledDevilCharacter>
             <StyledHomeSection/>
-            {/* <StyledProjectSection/> */}
+            <StyledProjectSection/>
         </StyledDevilCharacter>
 
 );
