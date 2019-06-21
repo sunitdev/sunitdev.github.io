@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
+import * as FontAwesome from 'react-icons/lib/fa';
+
 import AppButton from '../Common/Components/AppButton/AppButton';
 
 import EyeComponent from './Components/EyeComponent/EyeComponent';
@@ -46,6 +48,40 @@ const BioText = styled.p`
     margin: 0px 0px 2em 0px;
 `;
 
+const ButtonBar = styled.div`
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+`;
+
+const ResumeButton = styled(AppButton)`
+    margin: 0px 10px;
+`;
+
+const LinkedInIcon = styled(FontAwesome.FaLinkedinSquare)`
+    color: #0077b5;
+
+    margin: 0 20px;
+
+    font-size: 3em;
+
+    cursor: pointer;
+`;
+
+const GithubIcon = styled(FontAwesome.FaGithub)`
+    color: black;
+
+    margin: 0 20px;
+
+    font-size: 3em;
+
+    cursor: pointer;
+`;
+
+
 interface IHomeSectionState {
     mousePosition: {
         x: number;
@@ -83,6 +119,13 @@ export default class HomeSection extends React.Component<IHomeSectionProps, IHom
         })
     }
 
+    private onGithubButtonClicked(): void{
+        window.open('https://github.com/sunitdeshpande', '_blank');
+    }
+
+    private onLinkedInButtonClicked(): void {
+        window.open('https://www.linkedin.com/in/sunitdeshpande/', '_blank');
+    }
 
     render(){
         return (
@@ -102,7 +145,13 @@ export default class HomeSection extends React.Component<IHomeSectionProps, IHom
                 <BioText>I am a Computer Engineer by profession and passion. <br/>
                 I love learning, building and exploring science.</BioText>
 
-                <AppButton>Resume</AppButton>
+                <ButtonBar>
+                    <GithubIcon
+                        onClick={this.onGithubButtonClicked}/>
+                    <ResumeButton>Resume</ResumeButton>
+                    <LinkedInIcon
+                        onClick={this.onLinkedInButtonClicked}/>
+                </ButtonBar>
 
             </Container>
        );
