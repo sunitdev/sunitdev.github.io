@@ -35,7 +35,7 @@ const StyledEyeComponent = styled(EyeComponent)`
 const NameText = styled.h1`
     color: ${(props: any) => props.theme.colors.textHeadingPrimary};
 
-    font-size: 2em;
+    font-size: 1.5em;
 
     margin: 1em 0px;
 
@@ -45,7 +45,7 @@ const NameText = styled.h1`
 `;
 
 const BioText = styled.p`
-    font-size: 1em;
+    font-size: 1.2em;
 
     text-align: center;
 
