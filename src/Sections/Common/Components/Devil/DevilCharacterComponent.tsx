@@ -41,6 +41,13 @@ const LeftEar = styled.div`
     box-shadow: inset 0 0 5px white, 0 0 5px black;
 
     z-index: -200;
+
+    @media (min-width: 961px){
+        top: 5%;
+    }
+    @media (min-width:1025px) {
+        top: 0%;
+    }
 `;
 
 const RightEar = styled.div`
@@ -60,6 +67,13 @@ const RightEar = styled.div`
     box-shadow: inset 0 0 5px white, 0 0 5px black;
 
     z-index: -200;
+
+    @media (min-width: 961px){
+        top: 5%;
+    }
+    @media (min-width:1025px) {
+        top: 0%;
+    }
 `;
 
 

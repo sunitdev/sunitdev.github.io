@@ -24,8 +24,14 @@ const EyesContainer = styled.div`
     flex-direction: row;
     align-items: center;
 
-    margin-top: 1em;
-    margin-bottom: 1em;
+    @media (min-width: 961px){
+        margin-top: 10em;
+        margin-bottom: 1em;
+    }
+    @media (min-width:1025px) {
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
 `;
 
 const StyledEyeComponent = styled(EyeComponent)`
@@ -39,21 +45,31 @@ const NameText = styled.h1`
 
     margin: 1em 0px;
 
-    @media (min-width: 992px){
+    @media (min-width: 961px){
+        font-size: 5em;
+        margin: 2em 0px 1em 0px;
+    }
+    @media (min-width:1025px) {
         font-size: 3em;
     }
 `;
 
+
 const BioText = styled.p`
-    font-size: 1.2em;
 
     text-align: center;
+    font-size: 2em;
 
-    margin: 0px 0px 2em 0px;
+    margin-bottom: 2em;
 
-    @media (min-width: 992px){
+    @media (min-width: 961px){
+        font-size: 3em;
+        width: 80%;
+    }
+    @media (min-width:1025px) {
         font-size: 2em;
     }
+
 `;
 
 const ButtonBar = styled.div`
@@ -77,6 +93,13 @@ const LinkedInIcon = styled(FontAwesome.FaLinkedinSquare)`
     font-size: 3em;
 
     cursor: pointer;
+
+    @media (min-width: 961px){
+        font-size: 6em;
+    }
+    @media (min-width:1025px) {
+        font-size: 3em;
+    }
 `;
 
 const GithubIcon = styled(FontAwesome.FaGithub)`
@@ -87,6 +110,13 @@ const GithubIcon = styled(FontAwesome.FaGithub)`
     font-size: 3em;
 
     cursor: pointer;
+
+    @media (min-width: 961px){
+        font-size: 6em;
+    }
+    @media (min-width:1025px) {
+        font-size: 3em;
+    }
 `;
 
 

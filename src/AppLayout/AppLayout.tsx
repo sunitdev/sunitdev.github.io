@@ -12,6 +12,13 @@ const StyledDevilCharacter = styled(DevilCharacterComponent)`
 
     margin: auto;
     margin-top: 20px;
+
+    @media (min-width: 961px){
+        width: 100%;
+    }
+    @media (min-width:1025px) {
+        width: 80%;
+    }
 `;
 
 const StyledHomeSection = styled(HomeSection)`

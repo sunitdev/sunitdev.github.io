@@ -22,6 +22,13 @@ const ProjectGrid = styled.div`
     ::-webkit-scrollbar {
         display: none;
     }
+
+    @media (min-width: 961px){
+        grid-template-columns: 1fr;
+    }
+    @media (min-width:1025px) {
+        grid-template-columns: 1fr 1fr;
+    }
 `;
 
 
@@ -71,10 +78,10 @@ export default class ProjectSection extends React.Component<IProjectSectionProps
 
     render(){
 
-        const projectCards = this.state.projects.map((project: Project) => <ProjectCard project={project}/>);
+        const projectCards = this.state.projects.map((project: Project, index: number) => <ProjectCard project={project} key={index}/>);
         const loadingContext = [
-            <MyLoader/>,
-            <MyLoader/>
+            <MyLoader key={1}/>,
+            <MyLoader key={2}/>
         ];
 
         return (
