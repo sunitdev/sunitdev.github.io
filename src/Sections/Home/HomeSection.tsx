@@ -43,14 +43,17 @@ const NameText = styled.h1`
 
     font-size: 1.5em;
 
-    margin: 1em 0px;
 
     @media (min-width: 961px){
         font-size: 5em;
-        margin: 2em 0px 1em 0px;
+        margin-top: 2em;
+        margin-bottom: 0px;
+
     }
     @media (min-width:1025px) {
         font-size: 3em;
+        margin-top: 1em;
+        margin-bottom: 0px;
     }
 `;
 
