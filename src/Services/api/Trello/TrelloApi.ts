@@ -25,8 +25,9 @@ export default class TrelloApi {
 
         const THUMBNAIL_REGEX = /thumbnail\.(png|jpe?g)+/;
         const ANIMATED_GIF_REGEX = /animation.gif/;
+        const PROJECT_LINK_REGEX = /url/;
 
-        let thumbnail, animatedGif: string;
+        let thumbnail, animatedGif, projectLink: string;
         data.attachments.map((item: any)=> {
             let name: string = item.name.toLowerCase().trim();
 
@@ -34,6 +35,8 @@ export default class TrelloApi {
                 animatedGif = item.url;
             }else if( THUMBNAIL_REGEX.test(name) ){
                 thumbnail = item.url;
+            }else if( PROJECT_LINK_REGEX.test(name) ){
+                projectLink = item.url;
             }
         })
 
@@ -42,7 +45,8 @@ export default class TrelloApi {
             description: data.desc,
 
             thumbnail,
-            animatedGif
+            animatedGif,
+            projectLink
         }
     }
 }

@@ -4,4 +4,6 @@ export default interface Project {
 
     thumbnail: string;
     animatedGif: string;
+
+    projectLink: string;
 }

@@ -49,10 +49,13 @@ const Thumbnail = styled.img<IThumbnailProps>`
     }
 `;
 
-const Title = styled.h3`
+const Title = styled.a`
     color: ${(props: any) => props.theme.colors.textHeadingPrimary};
 
     margin: 1em 0px;
+
+    font-weight: bold;
+
 
     @media (min-width: 961px){
         font-size: 3em;
@@ -82,8 +85,8 @@ export default class ProjectCard extends React.Component<IProjectCardProps, any>
     render(){
         return (
             <Container>
-                <Thumbnail static={this.props.project.thumbnail} animated={this.props.project.animatedGif}/>
-                <Title>{this.props.project.title}</Title>
+                <a href={this.props.project.projectLink} target="_blank"><Thumbnail static={this.props.project.thumbnail} animated={this.props.project.animatedGif}/></a>
+                <Title href={this.props.project.projectLink} target="_blank">{this.props.project.title}</Title>
                 <Description>{this.props.project.description}</Description>
             </Container>
         );
