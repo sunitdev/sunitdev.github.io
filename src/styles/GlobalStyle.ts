@@ -14,6 +14,11 @@ const GlobalStyle = createGlobalStyle`
 
         font-family: ${props => props.theme.font.primary};
     }
+
+    #app {
+        width: 100%;
+        height: 100%;
+    }
 `;
 
 export { GlobalStyle }

@@ -1,0 +1,1 @@
+export { FooterText } from './FooterText';

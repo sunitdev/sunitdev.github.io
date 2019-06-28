@@ -151,8 +151,8 @@ const EyeComponent: React.SFC<EyeComponentProps> = (props: EyeComponentProps): J
 
 // Default Props
 EyeComponent.defaultProps = {
-    width: '200px',
-    height: '200px'
+    width: '150px',
+    height: '150px'
 };
 
 export { EyeComponent }
