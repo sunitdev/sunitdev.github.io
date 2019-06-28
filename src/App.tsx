@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { AppTheme } from './styles/theme';
 import { GlobalStyle } from './styles/GlobalStyle';
+import { AppRouter } from './AppRouter';
 
 const App = () => (
 
@@ -11,7 +12,9 @@ const App = () => (
 
         <React.Fragment>
             <GlobalStyle/>
-            <h1>App Header</h1>
+
+            <AppRouter/>
+
         </React.Fragment>
 
     </ThemeProvider>
