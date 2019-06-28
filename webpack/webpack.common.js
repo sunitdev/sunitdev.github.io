@@ -3,24 +3,17 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const BASE_DIR = path.dirname(path.dirname(__filename));
-
+const BASE_DIR = path.dirname(__dirname);
 const SRC_DIR = path.join(BASE_DIR, 'src');
 const DIST_DIR = path.join(BASE_DIR, 'dist');
 
-
 module.exports = {
-    entry: [
-        path.join(SRC_DIR, 'index.tsx')
-    ],
+
+    entry: path.join(SRC_DIR, 'index.tsx'),
 
     output: {
-        path: DIST_DIR,
-        filename: 'app.min.[contenthash].js'
-    },
-
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js']
+        filename: 'app.[hash].js',
+        path: DIST_DIR
     },
 
     module: {
@@ -28,31 +21,28 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
-                exclude: '/node_modules/'
+                exclude: /node_modules/
             }
         ]
+    },
+
+    resolve: {
+        extensions: [ '.tsx', '.ts', '.jsx', '.js']
     },
 
     plugins: [
         new CleanWebpackPlugin(),
 
+        // Generate index.html for github pages
         new HtmlWebpackPlugin({
             filename: path.join(BASE_DIR, 'index.html'),
-
-            template: path.join(SRC_DIR, 'index.template.html'),
-            title: 'Sunit Deshpande'
-        }),
+            template: path.join(SRC_DIR, 'index.template.html')
+        })
     ],
 
     optimization: {
         splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendor.",
-                    chunks: "initial"
-                }
-            }
+            chunks: "initial"
         }
     }
 }

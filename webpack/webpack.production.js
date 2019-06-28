@@ -4,8 +4,6 @@ const commonConfig = require('./webpack.common');
 
 module.exports = merge.smart(commonConfig, {
 
-    mode: 'production',
+    mode: 'production'
 
-    devtool: false
-
-});
+})
