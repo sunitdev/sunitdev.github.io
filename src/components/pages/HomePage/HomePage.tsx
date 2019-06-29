@@ -15,6 +15,9 @@ const LinkedInLogo = require('../../../assets/images/linked_in_logo.png');
 
 const NameText = styled.h1`
     text-align: center;
+
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5em;
 `;
 
 

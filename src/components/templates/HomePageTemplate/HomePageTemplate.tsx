@@ -25,6 +25,7 @@ const NameAndBio = styled.div`
 `;
 
 const IconBar = styled.div`
+    margin-top: 20px;
 `;
 
 interface HomePageTemplateProps {

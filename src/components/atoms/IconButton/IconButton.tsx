@@ -16,7 +16,7 @@ const Image = styled.img`
     border-radius: 100%;
 
     :hover {
-        background-color: rgba(0, 0, 0, 0.08);
+        transform: scale(1.2);
     }
 `;
 
