@@ -1,17 +1,5 @@
-# Project Structure
+# Personal Website - [Link](https://sunitdeshpande.github.io/)
 
-Using atom design principle.
+My Personal website.
 
-- src
-    - APP.tsx
-    - index.tsx
-    - AppRouter.tsx
-    - style.tsx
-    - components
-        - atoms
-        - molecules
-        - organisms
-        - template
-        - pages
-    - services
-        - trello
+This website renders projects using this Trello [Board](https://trello.com/b/R6NkuhCD/personal-website).
