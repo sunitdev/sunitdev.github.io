@@ -51,7 +51,7 @@ const ProjectPage: React.SFC = (props: any) => {
      * Handel back icon button click
      */
     function handleLeftArrowButtonClicked(){
-        props.history.goBack();
+        props.history.push('/');
     }
 
     return(
