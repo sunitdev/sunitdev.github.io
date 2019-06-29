@@ -11,6 +11,7 @@ import { Project } from '../../../models';
 import { IconButton } from '../../atoms/IconButton';
 import { HeadingText } from '../../atoms/HeadingText';
 import { ProjectCard } from '../../molecules/ProjectCard';
+import { ProjectLoadingCard } from '../../molecules/ProjectLoadingCard';
 
 const LeftArrowIcon = require('../../../assets/images/arrow_left.png');
 
@@ -69,9 +70,16 @@ const ProjectPage: React.SFC = (props: any) => {
             projects={
                 <React.Fragment>
                     {
-                        projects &&
+                        projects === undefined ?
+
+                        <React.Fragment>
+                            <ProjectLoadingCard/>
+                            <ProjectLoadingCard/>
+                        </React.Fragment> :
+
                         projects.map((item: Project) => <ProjectCard project={item} key={item.url}/>)
                     }
+
                 </React.Fragment>
             }/>
     );
