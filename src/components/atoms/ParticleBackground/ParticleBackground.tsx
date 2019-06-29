@@ -22,14 +22,14 @@ const ParticleBackground: React.SFC = () => (
     <StyledParticles
         params={
             {
-                "particles": {
-                    "number": {
-                        "value": 200
+                particles: {
+                    number: {
+                        value: 200
                     },
-                    "color": {
+                    color: {
                         value: "#adadad"
                     },
-                    "line_linked": {
+                    line_linked: {
                         enable: true,
                         color: "#adadad"
                     },

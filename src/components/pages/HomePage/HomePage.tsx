@@ -4,20 +4,18 @@ import styled from 'styled-components';
 
 import { HomePageTemplate } from '../../templates/HomePageTemplate';
 
+import { IconButton } from '../../atoms/IconButton';
+import { HeadingText } from '../../atoms/HeadingText';
 import { FooterText } from '../../atoms/FooterText';
 import { EyeBar } from '../../organisms/EyeBar';
 import { IconBar } from '../../organisms/IconBar';
-import { IconButton } from '../../atoms/IconButton';
 
 const GithubLogo  = require('../../../assets/images/github_logo.jpg');
 const ProjectIcon  = require('../../../assets/images/project_icon.png');
 const LinkedInLogo = require('../../../assets/images/linked_in_logo.png');
 
-const NameText = styled.h1`
+const NameText = styled(HeadingText)`
     text-align: center;
-
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.5em;
 `;
 
 

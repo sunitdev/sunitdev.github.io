@@ -21,6 +21,8 @@ const Image = styled.img`
 `;
 
 interface IconButtonProps {
+    className?: string;
+
     src: string;
 
     toolTip?: string;
@@ -50,6 +52,8 @@ const IconButton: React.SFC<IconButtonProps> = (props: IconButtonProps) => {
 
             <Image
                 src={props.src}
+
+                className={props.className}
 
                 data-tip data-for={iconButtonID}
 

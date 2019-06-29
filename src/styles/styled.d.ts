@@ -6,10 +6,12 @@ declare module 'styled-components' {
 
     colors: {
       primaryBackground: string;
+      primaryTextForeground: string;
     },
 
     font: {
         primary: string;
+        heading: string;
     }
 
   }
