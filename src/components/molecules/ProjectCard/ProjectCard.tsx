@@ -42,9 +42,11 @@ const CardBody = styled.div`
 `;
 
 const ProjectTitle = styled.h1`
+    text-align: center;
 `;
 
 const ProjectDescription = styled.p`
+    text-align: center;
 `;
 
 interface ProjectCardProps {
