@@ -33,6 +33,11 @@ const ProjectGrid = styled.div`
     align-items: center;
     justify-items: center;
 
+    /* Smartphones (portrait and landscape) ----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        grid-template-columns: 1fr;
+    }
+
 `;
 
 

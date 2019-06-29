@@ -27,6 +27,12 @@ const LeftArrowButton = styled(IconButton)`
     max-height: 30px;
 
     margin: 0px 10px;
+
+    /* Smartphones (portrait and landscape) ----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        max-width: 60px;
+        max-height: 60px;
+    }
 `;
 
 const ProjectPage: React.SFC = (props: any) => {

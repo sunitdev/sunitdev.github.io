@@ -14,6 +14,12 @@ const Container = styled.div`
     flex-direction: column;
 
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+    /* Smartphones (portrait and landscape) ----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+       max-width: 90%;
+       width: 90%;
+    }
 `;
 
 interface ImageProps {
@@ -32,6 +38,12 @@ const Image = styled.img<ImageProps>`
     :hover {
         background-image: url(${(props: ImageProps) => props.animated });
     }
+
+    /* Smartphones (portrait and landscape) ----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        width: 100%;
+        height: 500px;
+    }
 `;
 
 const CardBody = styled.div`
@@ -43,10 +55,20 @@ const CardBody = styled.div`
 
 const ProjectTitle = styled.h1`
     text-align: center;
+
+    /* Smartphones (portrait and landscape) ----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        font-size: 3em;
+    }
 `;
 
 const ProjectDescription = styled.p`
     text-align: center;
+
+    /* Smartphones (portrait and landscape) ----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        font-size: 2em;
+    }
 `;
 
 interface ProjectCardProps {

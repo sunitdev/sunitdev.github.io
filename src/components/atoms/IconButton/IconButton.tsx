@@ -18,6 +18,7 @@ const Image = styled.img`
     :hover {
         transform: scale(1.2);
     }
+
 `;
 
 interface IconButtonProps {
