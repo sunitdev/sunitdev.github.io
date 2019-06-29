@@ -9,7 +9,7 @@ import { EyeBar } from '../../organisms/EyeBar';
 import { IconBar } from '../../organisms/IconBar';
 import { IconButton } from '../../atoms/IconButton';
 
-const GithubLogo  = require('../../../assets/images/github_logo.png');
+const GithubLogo  = require('../../../assets/images/github_logo.jpg');
 const ProjectIcon  = require('../../../assets/images/project_icon.png');
 const LinkedInLogo = require('../../../assets/images/linked_in_logo.png');
 

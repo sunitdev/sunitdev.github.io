@@ -11,6 +11,7 @@ const App = () => (
     <ThemeProvider theme={AppTheme}>
 
         <React.Fragment>
+
             <GlobalStyle/>
 
             <AppRouter/>

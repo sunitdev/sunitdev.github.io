@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
+import { ParticleBackground } from '../../atoms/ParticleBackground';
+
 
 const Container = styled.div`
     width: 100%;
@@ -36,12 +38,18 @@ interface HomePageTemplateProps {
 }
 
 const HomePageTemplate: React.SFC<HomePageTemplateProps> = (props: HomePageTemplateProps) => (
-    <Container>
-        <EyeBar>{props.eyeBar}</EyeBar>
-        <NameAndBio>{props.nameAndBio}</NameAndBio>
-        <IconBar>{props.iconBar}</IconBar>
-        <Footer>{props.footer}</Footer>
-    </Container>
+    <React.Fragment>
+
+        <ParticleBackground/>
+
+        <Container>
+            <EyeBar>{props.eyeBar}</EyeBar>
+            <NameAndBio>{props.nameAndBio}</NameAndBio>
+            <IconBar>{props.iconBar}</IconBar>
+            <Footer>{props.footer}</Footer>
+        </Container>
+
+    </React.Fragment>
 );
 
 export { HomePageTemplate }
