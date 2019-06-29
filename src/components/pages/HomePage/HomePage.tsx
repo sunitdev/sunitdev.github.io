@@ -10,35 +10,61 @@ import { IconBar } from '../../organisms/IconBar';
 import { IconButton } from '../../atoms/IconButton';
 
 const GithubLogo  = require('../../../assets/images/github_logo.png');
+const ProjectIcon  = require('../../../assets/images/project_icon.png');
+const LinkedInLogo = require('../../../assets/images/linked_in_logo.png');
 
 const NameText = styled.h1`
     text-align: center;
 `;
 
 
-const HomePage = () => (
-    <HomePageTemplate
-        eyeBar={
-            <EyeBar/>
-        }
+const HomePage = (props: any) => {
 
-        nameAndBio = {
-            <NameText>Sunit Deshpande</NameText>
-        }
+    function handelGithubIconClicked(){
+        window.open('https://github.com/sunitdeshpande', '_blank');
+    }
 
-        iconBar = {
-            <IconBar>
-                <IconButton
-                    src={GithubLogo}
-                    toolTip={'Github'}
-                    onClick={(event) => {console.log('Clicked')}}/>
-            </IconBar>
-        }
+    function handelProjectIconClicked(){
+        props.history.push('/projects/');
+    }
 
-        footer={
-            <FooterText/>
-        }
-        />
-);
+    function handelLinkedInIconClicked() {
+        window.open('https://www.linkedin.com/in/sunitdeshpande/', '_blank');
+    }
+
+    return (
+        <HomePageTemplate
+            eyeBar={
+                <EyeBar/>
+            }
+
+            nameAndBio = {
+                <NameText>Sunit Deshpande</NameText>
+            }
+
+            iconBar = {
+                <IconBar>
+                    <IconButton
+                        src={GithubLogo}
+                        toolTip={'Github'}
+                        onClick={handelGithubIconClicked}/>
+                    <IconButton
+                        src={ProjectIcon}
+                        toolTip={'Projects'}
+                        onClick={handelProjectIconClicked}/>
+                    <IconButton
+                        src={LinkedInLogo}
+                        toolTip={'Linked In'}
+                        onClick={handelLinkedInIconClicked}/>
+                </IconBar>
+            }
+
+            footer={
+                <FooterText/>
+            }
+            />
+    );
+
+}
 
 export { HomePage }

@@ -12,7 +12,7 @@ const Image = styled.img`
 
     padding: 5px;
 
-    box-shadow: 0 3px 4px 0 rgba(44, 71, 146, 0.25);
+    box-shadow: 0 3px 4px 3px rgba(44, 71, 146, 0.25);
     border-radius: 100%;
 
     :hover {
