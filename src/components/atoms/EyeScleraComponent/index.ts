@@ -1,0 +1,1 @@
+export { EyeScleraComponent } from './EyeScleraComponent';

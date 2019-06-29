@@ -1,0 +1,1 @@
+export { EyePupilComponent } from './EyePupilComponent';

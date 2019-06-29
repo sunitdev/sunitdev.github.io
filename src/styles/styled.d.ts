@@ -1,22 +1,18 @@
 import 'styled-components'
 
+// App theme interface
 declare module 'styled-components' {
+  export interface DefaultTheme {
 
-    export interface DefaultTheme {
+    colors: {
+      primaryBackground: string;
+      primaryTextForeground: string;
+    },
 
-        colors: {
-            backgroundPrimary: string,
-            backgroundSecondary: string,
-
-            textPrimary: string;
-            textHeadingPrimary: string;
-            textHeadingSecondary: string;
-
-            defaultButtonColor: string;
-        },
-
-        text: {
-            fontFamily: string
-        }
+    font: {
+        primary: string;
+        heading: string;
     }
+
+  }
 }
