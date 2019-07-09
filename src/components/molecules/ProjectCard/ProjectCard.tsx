@@ -80,7 +80,7 @@ interface ProjectCardProps {
 const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
 
 
-    function handleOnProjectLinkClicked(event: any, project: Project){
+    function handleOnProjectLinkClicked(event: any){
 
         // Prevent default action
         event.preventDefault();
@@ -89,18 +89,18 @@ const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
         // Google analytics
         ReactGA.event({
             category: 'User',
-            action: `Project Link Clicked - ${project.title}`
+            action: `Project Link Clicked - ${props.project.title}`
         })
 
         // Open project link
-        window.open(project.url, '_blank');
+        window.open(props.project.url, '_blank');
     }
 
     // Project Link Component
     const ProjectLink: React.SFC = (linkProps: any) => (
         <a className={linkProps.className}
             href="#"
-            onClick={(event: any) => handleOnProjectLinkClicked(event, linkProps.project)}
+            onClick={(event: any) => handleOnProjectLinkClicked(event)}
             target='_blank'>
             {linkProps.children}
         </a>
