@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
+import * as ReactGA from 'react-ga';
+
 import { Project } from '../../../models';
 
 const Container = styled.div`
@@ -77,9 +79,22 @@ interface ProjectCardProps {
 
 const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
 
+
+    function handleOnProjectLinkClicked(project: Project){
+
+        // Google analytics
+        ReactGA.event({
+            category: 'User',
+            action: `Project Link Clicked - ${project.title}`
+        })
+    }
+
     // Project Link Component
     const ProjectLink: React.SFC = (linkProps: any) => (
-        <a className={linkProps.className} href={props.project.url} target='_blank'>
+        <a className={linkProps.className}
+            href={props.project.url} 
+            onClick={() => handleOnProjectLinkClicked(linkProps.project)} 
+            target='_blank'>
             {linkProps.children}
         </a>
     );

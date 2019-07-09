@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
+import * as ReactGA from 'react-ga';
+
 import * as TrelloService from '../../../services/Trello';
 
 import { ProjectPageTemplate } from '../../templates/ProjectPageTemplate';
@@ -57,6 +59,13 @@ const ProjectPage: React.SFC = (props: any) => {
      * Handel back icon button click
      */
     function handleLeftArrowButtonClicked(){
+
+        // Google analytics
+        ReactGA.event({
+            category: 'User',
+            action: 'Project Back Button Clicked'
+        })
+
         props.history.push('/');
     }
 

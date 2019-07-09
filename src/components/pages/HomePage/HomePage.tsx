@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
+import * as ReactGA from 'react-ga';
+
 import { HomePageTemplate } from '../../templates/HomePageTemplate';
 
 import { IconButton } from '../../atoms/IconButton';
@@ -22,14 +24,38 @@ const NameText = styled(HeadingText)`
 const HomePage = (props: any) => {
 
     function handelGithubIconClicked(){
+
+        // Google analytics
+        ReactGA.event({
+            category: 'User',
+            action: 'Github Profile Icon Clicked'
+        })
+
+        // Open github profile
         window.open('https://github.com/sunitdeshpande', '_blank');
     }
 
     function handelProjectIconClicked(){
+
+        // Google analytics
+        ReactGA.event({
+            category: 'User',
+            action: 'Project Icon Clicked'
+        })
+
+        // Open project page
         props.history.push('/projects/');
     }
 
     function handelLinkedInIconClicked() {
+
+        // Google analytics
+        ReactGA.event({
+            category: 'User',
+            action: 'LinkedIn Profile Icon Clicked'
+        })
+
+        // Open linkedin profile
         window.open('https://www.linkedin.com/in/sunitdeshpande/', '_blank');
     }
 
