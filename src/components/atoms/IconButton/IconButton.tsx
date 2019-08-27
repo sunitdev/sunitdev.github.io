@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import * as ReactTooltip from 'react-tooltip';
 
 const Image = styled.img`
-    max-height: 100px;
-    max-width: 100px;
+    max-height: 90px;
+    max-width: 90px;
 
     cursor: pointer;
 

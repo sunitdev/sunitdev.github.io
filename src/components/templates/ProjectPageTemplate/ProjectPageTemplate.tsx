@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
+import { GithubCornerIcon } from '../../atoms/GithubCornerIcon'
+
 const Container = styled.div`
     width: 100%;
     height: 100%;
@@ -47,14 +49,18 @@ interface ProjectPageTemplateProps {
 }
 
 const ProjectPageTemplate: React.SFC<ProjectPageTemplateProps> = (props: ProjectPageTemplateProps) => (
-    <Container>
-        <Header>
-            {props.header}
-        </Header>
-        <ProjectGrid>
-            {props.projects}
-        </ProjectGrid>
-    </Container>
+    <React.Fragment>
+        <GithubCornerIcon/>
+
+        <Container>
+            <Header>
+                {props.header}
+            </Header>
+            <ProjectGrid>
+                {props.projects}
+            </ProjectGrid>
+        </Container>
+    </React.Fragment>
 );
 
 export { ProjectPageTemplate }

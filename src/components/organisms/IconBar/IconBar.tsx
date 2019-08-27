@@ -14,7 +14,7 @@ const Container = styled.div`
     justify-content: center;
 
     > * {
-        margin: 0px 10px;
+        margin: 0px 20px;
     }
 `;
 

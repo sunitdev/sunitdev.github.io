@@ -3,6 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { ParticleBackground } from '../../atoms/ParticleBackground';
+import { GithubCornerIcon } from '../../atoms/GithubCornerIcon';
 
 
 const Container = styled.div`
@@ -41,6 +42,8 @@ const HomePageTemplate: React.SFC<HomePageTemplateProps> = (props: HomePageTempl
     <React.Fragment>
 
         <ParticleBackground/>
+
+        <GithubCornerIcon/>
 
         <Container>
             <EyeBar>{props.eyeBar}</EyeBar>

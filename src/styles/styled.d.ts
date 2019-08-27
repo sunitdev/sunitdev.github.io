@@ -7,6 +7,9 @@ declare module 'styled-components' {
     colors: {
       primaryBackground: string;
       primaryTextForeground: string;
+
+      githubCornerIconBackground: string;
+      githubCornerIconForeground: string;
     },
 
     font: {
