@@ -27,11 +27,11 @@ const ParticleBackground: React.SFC = () => (
                         value: 200
                     },
                     color: {
-                        value: "#adadad"
+                        value: "#c5c5c5"
                     },
                     line_linked: {
                         enable: true,
-                        color: "#adadad"
+                        color: "#c5c5c5"
                     },
                     move: {
                         speed: 2

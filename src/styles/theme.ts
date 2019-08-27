@@ -9,7 +9,7 @@ const AppTheme: DefaultTheme = {
 
     font: {
         primary: "'Roboto', sans-serif",
-        heading: "'Dancing Script',cursive"
+        heading: "'Roboto', sans-serif"
     }
 
 }
