@@ -26,8 +26,6 @@ const BioText = styled.p`
     text-align: center;
     margin-top: 0;
 
-    text-decoration: underline;
-
     color: ${props => props.theme.colors.secondaryTextForeground};
 `;
 
