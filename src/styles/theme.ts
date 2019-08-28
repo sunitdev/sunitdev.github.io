@@ -4,7 +4,9 @@ const AppTheme: DefaultTheme = {
 
     colors: {
         primaryBackground: '#F5F5F5',
+
         primaryTextForeground: '#000000',
+        secondaryTextForeground: '#5F5F5F',
 
         githubCornerIconBackground: '#151513',
         githubCornerIconForeground: '#ffffff'

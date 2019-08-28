@@ -18,8 +18,18 @@ const LinkedInLogo = require('../../../assets/images/linked_in_logo.png');
 
 const NameText = styled(HeadingText)`
     text-align: center;
+
+    margin-bottom: 10px;
 `;
 
+const BioText = styled.p`
+    text-align: center;
+    margin-top: 0;
+
+    text-decoration: underline;
+
+    color: ${props => props.theme.colors.secondaryTextForeground}
+`;
 
 const HomePage = (props: any) => {
 
@@ -66,7 +76,10 @@ const HomePage = (props: any) => {
             }
 
             nameAndBio = {
-                <NameText>Sunit Deshpande</NameText>
+                <React.Fragment>
+                    <NameText>Sunit Deshpande</NameText>
+                    <BioText>Data Scientist & Fullstack Developer, Dublin, Ireland.</BioText>
+                </React.Fragment>
             }
 
             iconBar = {
