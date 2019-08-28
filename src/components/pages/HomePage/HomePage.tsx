@@ -28,7 +28,7 @@ const BioText = styled.p`
 
     text-decoration: underline;
 
-    color: ${props => props.theme.colors.secondaryTextForeground}
+    color: ${props => props.theme.colors.secondaryTextForeground};
 `;
 
 const HomePage = (props: any) => {
@@ -78,7 +78,7 @@ const HomePage = (props: any) => {
             nameAndBio = {
                 <React.Fragment>
                     <NameText>Sunit Deshpande</NameText>
-                    <BioText>Data Scientist & Fullstack Developer, Dublin, Ireland.</BioText>
+                    <BioText>Data Scientist & Full-Stack Developer, Dublin, Ireland.</BioText>
                 </React.Fragment>
             }
 
