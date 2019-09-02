@@ -19,6 +19,11 @@ const Image = styled.img`
         transform: scale(1.2);
     }
 
+    /* Smartphones (portrait and landscape) ----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        max-height: 150px;
+        max-width: 150px;
+    }
 `;
 
 interface IconButtonProps {

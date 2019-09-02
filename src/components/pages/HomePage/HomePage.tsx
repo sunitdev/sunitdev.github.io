@@ -27,6 +27,11 @@ const BioText = styled.p`
     margin-top: 0;
 
     color: ${props => props.theme.colors.secondaryTextForeground};
+
+    /* Smartphones (portrait and landscape) ----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        font-size: 2em;
+    }
 `;
 
 const HomePage = (props: any) => {
