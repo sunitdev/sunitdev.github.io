@@ -89,6 +89,7 @@ const ProjectPage: React.SFC = (props: any) => {
 
                         <React.Fragment>
                             <ProjectLoadingCard/>
+                            <ProjectLoadingCard/>
                         </React.Fragment> :
 
                         projects.map((item: Project) => <ProjectCard project={item} key={item.url}/>)

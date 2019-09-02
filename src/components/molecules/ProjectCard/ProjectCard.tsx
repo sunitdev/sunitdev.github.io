@@ -39,6 +39,8 @@ const Image = styled.img<ImageProps>`
 
     :hover {
         background-image: url(${(props: ImageProps) => props.animated });
+        background-size: auto;
+        background-position: center;
     }
 
     /* Smartphones (portrait and landscape) ----------- */
