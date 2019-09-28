@@ -22,23 +22,12 @@
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
-- [Usage](#usage)
 - [About The Project](#about-the-project)
   - [Built With](#built-with)
 - [Getting Started](#getting-started)
 - [Installation](#installation)
 - [Building](#building)
 - [Contact](#contact)
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-on)
-- [Contact](#contact)
-
 
 
 <!-- ABOUT THE PROJECT -->
@@ -48,7 +37,7 @@ on)
 
 This repository contains source code of my personal website. The purpose of the website is to create an online presence. And also a playground for me to experiments with different client side technologies.
 
-The website is not entirely static. The list of projects is rendered from a [Trello Board](https://trello.com/b/R6NkuhCD/personal-website). This Trello board has public visibility. Thus when the React application is loaded, it calls the Trello api and get the content of the list which are then rendered as projects in the [project page](https://sunitdeshpande.github.io/#/projects/).
+The website is not entirely static. The list of projects is rendered from a [Trello board](https://trello.com/b/R6NkuhCD/personal-website). This Trello board has public visibility. Thus when the React application is loaded, it calls the Trello api and get the content of the list which are then rendered as projects in the [project page](https://sunitdeshpande.github.io/#/projects/).
 
 
 ### Built With
