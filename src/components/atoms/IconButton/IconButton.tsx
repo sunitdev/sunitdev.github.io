@@ -39,6 +39,11 @@ const StyledLink = styled.a`
     text-decoration: none;
 
     font-weight: bold;
+
+    /* Smartphones (portrait and landscape) ----------- */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        font-size: 2em;
+    }
 `;
 
 interface IconButtonProps {
