@@ -15,6 +15,8 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
 
+    border-radius: 20px;
+
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
     /* Smartphones (portrait and landscape) ----------- */
@@ -32,6 +34,8 @@ interface ImageProps {
 const Image = styled.img<ImageProps>`
     width: 450px;
     height: 350px;
+
+    border-radius: 20px 20px 0px 0px;
 
     background-image: url("${(props: ImageProps) => props.static }");
     background-repeat: no-repeat;
@@ -107,6 +111,7 @@ const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
             {linkProps.children}
         </a>
     );
+
     const StyledProjectLink = styled(ProjectLink)`
         color: ${props => props.theme.colors.primaryTextForeground};
     `;

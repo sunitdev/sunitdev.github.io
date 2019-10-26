@@ -2,7 +2,12 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
-import * as ReactTooltip from 'react-tooltip';
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+`;
 
 const Image = styled.img`
     max-height: 90px;
@@ -26,12 +31,23 @@ const Image = styled.img`
     }
 `;
 
+const StyledLink = styled.a`
+    margin-top: 15px;
+
+    color: ${props => props.theme.colors.secondaryTextForeground};
+
+    text-decoration: none;
+
+    font-weight: bold;
+`;
+
 interface IconButtonProps {
     className?: string;
 
     src: string;
 
-    toolTip?: string;
+    text?: string;
+
     onClick?: (event: React.MouseEvent) => void;
 }
 
@@ -53,8 +69,16 @@ const IconButton: React.SFC<IconButtonProps> = (props: IconButtonProps) => {
         }
     }
 
+    function handelTextClicked(event: React.MouseEvent){
+        event.preventDefault();
+
+        if(props.onClick){
+            props.onClick(event);
+        }
+    }
+
     return (
-        <React.Fragment>
+        <Container>
 
             <Image
                 src={props.src}
@@ -66,19 +90,14 @@ const IconButton: React.SFC<IconButtonProps> = (props: IconButtonProps) => {
                 onClick={handleImageClicked}/>
 
             {
-                props.toolTip &&
+                props.text &&
 
-                <ReactTooltip
-                    id={iconButtonID}
-                    effect='solid'
-                    place='bottom'>
-
-                    <span>{props.toolTip}</span>
-
-                </ReactTooltip>
+                <StyledLink
+                    href="#"
+                    onClick={handelTextClicked}>{props.text}</StyledLink>
             }
 
-        </React.Fragment>
+        </Container>
     );
 }
 

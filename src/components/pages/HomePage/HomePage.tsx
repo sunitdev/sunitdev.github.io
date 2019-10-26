@@ -89,15 +89,15 @@ const HomePage = (props: any) => {
                 <IconBar>
                     <IconButton
                         src={GithubLogo}
-                        toolTip={'Github'}
+                        text={'Github'}
                         onClick={handelGithubIconClicked}/>
                     <IconButton
                         src={ProjectIcon}
-                        toolTip={'Projects'}
+                        text={'Projects'}
                         onClick={handelProjectIconClicked}/>
                     <IconButton
                         src={LinkedInLogo}
-                        toolTip={'Linked In'}
+                        text={'LinkedIn'}
                         onClick={handelLinkedInIconClicked}/>
                 </IconBar>
             }
