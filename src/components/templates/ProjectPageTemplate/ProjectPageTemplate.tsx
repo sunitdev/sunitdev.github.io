@@ -34,10 +34,23 @@ const ProjectGrid = styled.div`
 
     overflow: auto;
 
+
     /* Smartphones (portrait and landscape) ----------- */
-    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
         grid-template-columns: 1fr;
     }
+
+
+    /* Desktops and laptops ----------- */
+    @media only screen and (min-width: 1224px) {
+        grid-template-columns: 15% 1fr 15%;
+    }
+
+    /* Large screens ----------- */
+    @media only screen and (min-width: 1824px) {
+        grid-template-columns: 20% 1fr 20%;
+    }
+
 
     > * {
         grid-column-start: 2;
