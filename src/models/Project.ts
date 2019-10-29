@@ -3,9 +3,12 @@ type Project = {
     description: string;
 
     url: string;
+    displayURL: string;
 
     thumbnailURL: string;
     animatedGifURL: string;
+
+    technologies: string[];
 }
 
 export { Project }

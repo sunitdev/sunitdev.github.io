@@ -25,21 +25,23 @@ const Header = styled.div`
 const ProjectGrid = styled.div`
 
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 20% 1fr 20%;
 
-    overflow: auto;
+    padding: 10px 0px;
+    box-sizing: border-box;
 
-    padding: 5px;
     grid-row-gap: 20px;
 
-    align-items: center;
-    justify-items: center;
+    overflow: auto;
 
     /* Smartphones (portrait and landscape) ----------- */
     @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
         grid-template-columns: 1fr;
     }
 
+    > * {
+        grid-column-start: 2;
+    }
 `;
 
 

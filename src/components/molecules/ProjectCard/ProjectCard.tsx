@@ -7,17 +7,16 @@ import * as ReactGA from 'react-ga';
 import { Project } from '../../../models';
 
 const Container = styled.div`
-    width: fit-content;
     height: fit-content;
 
-    max-width: 450px;
-
-    display: flex;
-    flex-direction: column;
+    display:flex;
 
     border-radius: 20px;
 
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+    padding: 10px;
+    margin: 5px 0px;
 
     /* Smartphones (portrait and landscape) ----------- */
     @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
@@ -34,8 +33,6 @@ interface ImageProps {
 const Image = styled.img<ImageProps>`
     width: 450px;
     height: 350px;
-
-    border-radius: 20px 20px 0px 0px;
 
     background-image: url("${(props: ImageProps) => props.static }");
     background-repeat: no-repeat;
@@ -55,10 +52,12 @@ const Image = styled.img<ImageProps>`
 `;
 
 const CardBody = styled.div`
+    width: 100%;
+
+    padding: 0px 10px;
+
     display: flex;
     flex-direction: column;
-
-    padding: 5px;
 `;
 
 const ProjectTitle = styled.h1`
@@ -71,13 +70,43 @@ const ProjectTitle = styled.h1`
 `;
 
 const ProjectDescription = styled.p`
-    text-align: center;
+
+    font-size: 1.2em;
 
     /* Smartphones (portrait and landscape) ----------- */
     @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
         font-size: 2em;
     }
 `;
+
+const TechnologyTagContainer = styled.ul`
+    list-style-type: none;
+`;
+
+const TechnologyTag = styled.li`
+    display: inline;
+
+    cursor: default;
+
+    font-size: 0.9em;
+    line-height: 20px;
+
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+    padding: 5px 10px;
+    margin-right: 10px;
+`;
+
+const FooterText = styled.p`
+  text-align: right;
+`;
+
+const BottomLink = styled.a`
+    color: #6d56c1;
+    text-decoration: none;
+`;
+
 
 interface ProjectCardProps {
     project: Project;
@@ -116,6 +145,8 @@ const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
         color: ${props => props.theme.colors.primaryTextForeground};
     `;
 
+    console.log(props.project);
+
     return (
         <Container>
 
@@ -132,6 +163,13 @@ const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
                 </StyledProjectLink>
 
                 <ProjectDescription>{props.project.description}</ProjectDescription>
+                <h4>Technologies Used:</h4>
+                <TechnologyTagContainer>
+                    {
+                        props.project.technologies.map(name => (<TechnologyTag key={name}>{name}</TechnologyTag>))
+                    }
+                </TechnologyTagContainer>
+                <FooterText><BottomLink href={props.project.url}>{props.project.displayURL}</BottomLink></FooterText>
             </CardBody>
 
         </Container>

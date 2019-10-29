@@ -13,10 +13,11 @@ const PARAM_PROJECT_LIST = {
 }
 
 // Attachment Regex
-const ATTACHMENT_THUMBNAIL_REGEX = /thumbnail\.(png|jpe?g)+/;
-const ATTACHMENT_ANIMATED_GIF_REGEX = /animation.gif/;
-const ATTACHMENT_PROJECT_LINK_REGEX = /url/;
-
+const ATTACHMENT_THUMBNAIL_REGEX = /^thumbnail\.(png|jpe?g)+$/;
+const ATTACHMENT_ANIMATED_GIF_REGEX = /^animation.gif$/;
+const ATTACHMENT_PROJECT_LINK_REGEX = /^url$/;
+const ATTACHMENT_TECHNOLOGIES_REGEX = /^technologies$/;
+const ATTACHMENT_DISPLAY_URL_REGEX = /^display-url$/;
 
 /**
  * Return a promise to get project list from trello
@@ -34,7 +35,10 @@ async function getProjects(): Promise<Project[]> {
 function parseResponseToProject(data: any): Project {
 
     // Get attachments
-    let thumbnailURL, animatedGifURL, projectLink: string;
+    let thumbnailURL, animatedGifURL, projectLink, displayURL: string;
+
+    let technologies: string[] = [];
+
     data.attachments.map((item: any)=> {
         let name: string = item.name.toLowerCase().trim();
 
@@ -45,6 +49,12 @@ function parseResponseToProject(data: any): Project {
         }else if( ATTACHMENT_PROJECT_LINK_REGEX.test(name) ){
             projectLink = item.url;
         }
+        else if( ATTACHMENT_TECHNOLOGIES_REGEX.test(name) ){
+            technologies = item.url.replace('http://', '').split(',').map((item: string) => item.trim());
+        }
+        else if( ATTACHMENT_DISPLAY_URL_REGEX.test(name) ){
+            displayURL = item.url;
+        }
     })
 
     return {
@@ -54,7 +64,9 @@ function parseResponseToProject(data: any): Project {
         url: projectLink,
 
         thumbnailURL,
-        animatedGifURL
+        animatedGifURL,
+        displayURL,
+        technologies
     }
 }
 
