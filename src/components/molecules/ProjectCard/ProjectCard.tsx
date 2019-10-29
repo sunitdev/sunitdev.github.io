@@ -32,7 +32,7 @@ interface ImageProps {
 
 const Image = styled.img<ImageProps>`
     width: 450px;
-    height: 350px;
+    height: 100%;
 
     background-image: url("${(props: ImageProps) => props.static }");
     background-repeat: no-repeat;
