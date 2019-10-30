@@ -8,6 +8,7 @@ declare module 'styled-components' {
 
       primaryTextForeground: string;
       secondaryTextForeground: string;
+      primaryLinkForeground: string;
 
       githubCornerIconBackground: string;
       githubCornerIconForeground: string;

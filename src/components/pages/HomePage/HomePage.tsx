@@ -15,6 +15,7 @@ import { IconBar } from '../../organisms/IconBar';
 const GithubLogo  = require('../../../assets/images/github_logo.jpg');
 const ProjectIcon  = require('../../../assets/images/project_icon.png');
 const LinkedInLogo = require('../../../assets/images/linked_in_logo.png');
+const OpenSourceLogo = require('../../../assets/images/open_source_logo.png');
 
 const NameText = styled(HeadingText)`
     text-align: center;
@@ -60,6 +61,18 @@ const HomePage = (props: any) => {
         props.history.push('/projects/');
     }
 
+    function handelOpenSourceIconClicked(){
+
+        // Google analytics
+        ReactGA.event({
+            category: 'User',
+            action: 'Open Source Icon Clicked'
+        })
+
+        // Open project page
+        props.history.push('/open-source/');
+    }
+
     function handelLinkedInIconClicked() {
 
         // Google analytics
@@ -95,6 +108,10 @@ const HomePage = (props: any) => {
                         src={ProjectIcon}
                         text={'Projects'}
                         onClick={handelProjectIconClicked}/>
+                    <IconButton
+                        src={OpenSourceLogo}
+                        text={'Open Source'}
+                        onClick={handelOpenSourceIconClicked}/>
                     <IconButton
                         src={LinkedInLogo}
                         text={'LinkedIn'}

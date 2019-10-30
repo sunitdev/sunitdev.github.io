@@ -98,7 +98,7 @@ const FooterText = styled.p`
 `;
 
 const BottomLink = styled.a`
-    color: #6d56c1;
+    color: ${props => props.theme.colors.primaryLinkForeground};
     text-decoration: none;
 `;
 
@@ -138,6 +138,8 @@ const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
 
     const StyledProjectLink = styled(ProjectLink)`
         color: ${props => props.theme.colors.primaryTextForeground};
+
+        text-decoration: none;
     `;
 
     console.log(props.project);
@@ -145,11 +147,14 @@ const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
     return (
         <Container>
 
-            <StyledProjectLink>
+            {
+                props.project.thumbnailURL &&
+                <ProjectLink>
                     <Image
                         static={props.project.thumbnailURL}
                         animated={props.project.animatedGifURL}/>
-            </StyledProjectLink>
+                </ProjectLink>
+            }
 
             <CardBody>
 
@@ -158,13 +163,24 @@ const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
                 </StyledProjectLink>
 
                 <ProjectDescription>{props.project.description}</ProjectDescription>
-                <h4>Technologies Used:</h4>
-                <TechnologyTagContainer>
-                    {
-                        props.project.technologies.map(name => (<TechnologyTag key={name}>{name}</TechnologyTag>))
-                    }
-                </TechnologyTagContainer>
-                <FooterText><BottomLink href={props.project.url} target="_blank">{props.project.displayURL}</BottomLink></FooterText>
+
+                {
+                    props.project.technologies.length > 0 &&
+                    <React.Fragment>
+                        <h4>Technologies Used:</h4>
+                        <TechnologyTagContainer>
+                            {
+                                props.project.technologies.map(name => (<TechnologyTag key={name}>{name}</TechnologyTag>))
+                            }
+                        </TechnologyTagContainer>
+                    </React.Fragment>
+                }
+
+                {
+                    props.project.displayURL &&
+                    <FooterText><BottomLink href={props.project.url} target="_blank">{props.project.displayURL}</BottomLink></FooterText>
+                }
+
             </CardBody>
 
         </Container>

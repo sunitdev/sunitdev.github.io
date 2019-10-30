@@ -7,6 +7,7 @@ import * as ReactGA from 'react-ga';
 
 import { HomePage } from './components/pages/HomePage';
 import { ProjectPage } from './components/pages/ProjectPage';
+import { OpenSourcePage } from './components/pages/OpenSourcePage';
 
 
 function getURlFromLocation(location: Location): string {
@@ -32,6 +33,7 @@ const AppRouter = () => (
     <Router history={history}>
         <Route path="/" exact component={HomePage}/>
         <Route path="/projects/" component={ProjectPage}/>
+        <Route path="/open-source/" component={OpenSourcePage} />
     </Router>
 );
 

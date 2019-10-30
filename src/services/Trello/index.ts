@@ -1,1 +1,1 @@
-export { getProjects } from './TrelloService';
+export { getProjects, getOpenSourceProjects } from './TrelloService';

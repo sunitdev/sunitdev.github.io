@@ -2,10 +2,13 @@ import axios from 'axios';
 
 import { Project } from '../../models/Project';
 
-const PROJECT_LIST_ID = '5d0c4e84976b56074e2ff245';
+const PERSONAL_PROJECT_LIST_ID = '5d0c4e84976b56074e2ff245';
+
+const OPEN_SOURCE_LIST_ID = '5db8ef97b613d666e808237c';
+
+const URL_PROJECT_LIST = 'https://api.trello.com/1/lists/';
 
 // API Request Params
-const URL_PROJECT_LIST = `https://api.trello.com/1/lists/${PROJECT_LIST_ID}/cards`;
 const PARAM_PROJECT_LIST = {
     fields: 'name,desc',
     attachments: true,
@@ -24,8 +27,19 @@ const ATTACHMENT_DISPLAY_URL_REGEX = /^display-url$/;
  */
 async function getProjects(): Promise<Project[]> {
 
-    return axios.get(URL_PROJECT_LIST, { params: PARAM_PROJECT_LIST })
-        .then((response: any): Project[] => response.data.map(parseResponseToProject))
+    return getProjectsFromList(PERSONAL_PROJECT_LIST_ID);
+
+}
+
+async function getOpenSourceProjects(): Promise<Project[]> {
+
+    return getProjectsFromList(OPEN_SOURCE_LIST_ID);
+}
+
+async function getProjectsFromList(listID: string): Promise<Project[]> {
+
+    return axios.get(`${URL_PROJECT_LIST}${listID}/cards/`, { params: PARAM_PROJECT_LIST })
+    .then((response: any): Project[] => response.data.map(parseResponseToProject))
 }
 
 /**
@@ -71,4 +85,4 @@ function parseResponseToProject(data: any): Project {
 }
 
 
-export { getProjects }
+export { getProjects, getOpenSourceProjects }

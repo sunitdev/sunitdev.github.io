@@ -1,0 +1,1 @@
+export { OpenSourcePageTemplate } from './OpenSourcePageTemplate';
