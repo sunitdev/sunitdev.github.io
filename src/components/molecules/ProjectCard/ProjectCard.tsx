@@ -18,11 +18,6 @@ const Container = styled.div`
     padding: 10px;
     margin: 5px 0px;
 
-    /* Smartphones (portrait and landscape) ----------- */
-    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-       max-width: 90%;
-       width: 90%;
-    }
 `;
 
 interface ImageProps {
@@ -46,9 +41,9 @@ const Image = styled.img<ImageProps>`
 
     /* Smartphones (portrait and landscape) ----------- */
     @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-        width: 100%;
-        height: 500px;
+        display: none;
     }
+
 `;
 
 const CardBody = styled.div`
@@ -169,7 +164,7 @@ const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
                         props.project.technologies.map(name => (<TechnologyTag key={name}>{name}</TechnologyTag>))
                     }
                 </TechnologyTagContainer>
-                <FooterText><BottomLink href={props.project.url}>{props.project.displayURL}</BottomLink></FooterText>
+                <FooterText><BottomLink href={props.project.url} target="_blank">{props.project.displayURL}</BottomLink></FooterText>
             </CardBody>
 
         </Container>

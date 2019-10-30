@@ -37,7 +37,7 @@ const ProjectGrid = styled.div`
 
     /* Smartphones (portrait and landscape) ----------- */
     @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-        grid-template-columns: 1fr;
+        grid-template-columns: 5% 1fr 5%;
     }
 
 
