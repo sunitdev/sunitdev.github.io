@@ -142,8 +142,6 @@ const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
         text-decoration: none;
     `;
 
-    console.log(props.project);
-
     return (
         <Container>
 

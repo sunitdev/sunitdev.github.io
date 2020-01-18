@@ -17,7 +17,7 @@ const PARAM_PROJECT_LIST = {
 
 // Attachment Regex
 const ATTACHMENT_THUMBNAIL_REGEX = /^thumbnail\.(png|jpe?g)+$/;
-const ATTACHMENT_ANIMATED_GIF_REGEX = /^animation.gif$/;
+const ATTACHMENT_ANIMATED_GIF_REGEX = /^animation.(png|jpe?g|gif)$/;
 const ATTACHMENT_PROJECT_LINK_REGEX = /^url$/;
 const ATTACHMENT_TECHNOLOGIES_REGEX = /^technologies$/;
 const ATTACHMENT_DISPLAY_URL_REGEX = /^display-url$/;
