@@ -110,20 +110,15 @@ const EyeComponent: React.SFC<EyeComponentProps> = (props: EyeComponentProps): J
     const mouseLocation: Coordinates = useMousePointerLocation({x: 0, y: 0});
 
     // Reference of Irish and Pupil
-    const [irisComponentRef, pupilComponentRef] = [React.useRef(), React.useRef()];
+    const [ pupilComponentRef ] = [React.useRef()];
 
     // On mount get location of iris and pupil component
-    const [irisLocation, setIrisLocation] = React.useState<Coordinates>();
     const [pupilLocation, setPupilLocation] = React.useState<Coordinates>();
     React.useEffect(() => {
-
-        setIrisLocation(getCenterOfComponent(irisComponentRef.current));
         setPupilLocation(getCenterOfComponent(pupilComponentRef.current));
-
     }, []);
 
     // Compute relative position based on mouse pointer
-    const irisRelativePosition = computePositionOfCompomentRelativeToMousePointer(irisLocation, mouseLocation);
     const pupliPosition = computePositionOfCompomentRelativeToMousePointer(pupilLocation, mouseLocation);
 
     return (
@@ -134,10 +129,8 @@ const EyeComponent: React.SFC<EyeComponentProps> = (props: EyeComponentProps): J
             <EyeScleraComponent />
 
             <EyeIrisComponent
-                ref={irisComponentRef}
-
-                left={irisRelativePosition.left}
-                top={irisRelativePosition.top}/>
+                left={pupliPosition.left}
+                top={pupliPosition.top}/>
 
             <EyePupilComponent
                 ref={pupilComponentRef}
