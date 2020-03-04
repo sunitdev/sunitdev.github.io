@@ -94,7 +94,7 @@ const HomePage = (props: any) => {
             nameAndBio = {
                 <React.Fragment>
                     <NameText>Sunit Deshpande</NameText>
-                    <BioText>Data Scientist & Full-Stack Developer, Dublin, Ireland.</BioText>
+                    <BioText>Full-Stack Developer, Dublin, Ireland.</BioText>
                 </React.Fragment>
             }
 
