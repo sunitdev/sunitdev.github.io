@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 
 import { Coordinates } from '../../../models';
 
@@ -97,6 +97,50 @@ function computePositionOfCompomentRelativeToMousePointer(componentCenter: Coord
     }
 }
 
+// Blink Animation
+const scleraAnimation = keyframes`
+  0%, 8% {
+    height: 100%;
+  }
+  10%, 12% {
+    height: 10%;
+  }
+  14%, 100% {
+    height: 100%;
+  }
+`;
+const irisAnimation = keyframes`
+  0%, 8% {
+    height: 50%;
+  }
+  10%, 12% {
+    height: 10%;
+  }
+  14%, 100% {
+    height: 50%;
+  }
+`;
+const pupilAnimation = keyframes`
+  0%, 8% {
+    height: 25%;
+  }
+  10%, 12% {
+    height: 10%;
+  }
+  14%, 100% {
+    height: 25%;
+  }
+`;
+const AnimatedEyeScleraComponent = styled(EyeScleraComponent)`
+  animation: ${scleraAnimation} 4s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+`;
+const AnimatedEyeIrisComponent = styled(EyeIrisComponent)`
+  animation: ${irisAnimation} 4s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+`;
+const AnimatedEyePupilComponent = styled(EyePupilComponent)`
+   animation: ${pupilAnimation} 4s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+`;
+
 // Eye Component Props
 interface EyeComponentProps {
     width?: string;
@@ -126,13 +170,13 @@ const EyeComponent: React.SFC<EyeComponentProps> = (props: EyeComponentProps): J
             width={props.width}
             height={props.height}>
 
-            <EyeScleraComponent />
+            <AnimatedEyeScleraComponent/>
 
-            <EyeIrisComponent
+            <AnimatedEyeIrisComponent
                 left={pupliPosition.left}
                 top={pupliPosition.top}/>
 
-            <EyePupilComponent
+            <AnimatedEyePupilComponent
                 ref={pupilComponentRef}
 
                 left={pupliPosition.left}

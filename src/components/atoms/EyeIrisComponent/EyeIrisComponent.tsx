@@ -27,4 +27,4 @@ const EyeIrisComponent = styled.span.attrs<EyeIrisComponentProps>({
     margin: auto;
 `;
 
-export { EyeIrisComponent }
+export {EyeIrisComponent}
