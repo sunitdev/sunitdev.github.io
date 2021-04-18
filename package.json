@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sunitdeshpande/sunitdeshpande.github.io.git"
+    "url": "git+https://github.com/sunitdev/sunitdev.github.io.git"
   },
   "author": "Sunit Deshpande",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sunitdeshpande/sunitdeshpande.github.io/issues"
+    "url": "https://github.com/sunitdev/sunitdev.github.io/issues"
   },
-  "homepage": "https://github.com/sunitdeshpande/sunitdeshpande.github.io#readme",
+  "homepage": "https://github.com/sunitdev/sunitdev.github.io#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "file-loader": "^4.0.0",

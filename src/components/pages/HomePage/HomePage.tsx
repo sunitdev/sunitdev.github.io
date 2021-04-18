@@ -46,7 +46,7 @@ const HomePage = (props: any) => {
         })
 
         // Open github profile
-        window.open('https://github.com/sunitdeshpande', '_blank');
+        window.open('https://github.com/sunitdev', '_blank');
     }
 
     function handelProjectIconClicked(){
