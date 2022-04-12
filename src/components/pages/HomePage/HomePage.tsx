@@ -85,6 +85,10 @@ const HomePage = (props: any) => {
         window.open('https://www.linkedin.com/in/sunitdeshpande/', '_blank');
     }
 
+//                      <IconButton
+//                         src={OpenSourceLogo}
+//                         text={'Open Source'}
+//                         onClick={handelOpenSourceIconClicked}/>
     return (
         <HomePageTemplate
             eyeBar={
@@ -108,10 +112,6 @@ const HomePage = (props: any) => {
                         src={ProjectIcon}
                         text={'Projects'}
                         onClick={handelProjectIconClicked}/>
-                    <IconButton
-                        src={OpenSourceLogo}
-                        text={'Open Source'}
-                        onClick={handelOpenSourceIconClicked}/>
                     <IconButton
                         src={LinkedInLogo}
                         text={'LinkedIn'}
