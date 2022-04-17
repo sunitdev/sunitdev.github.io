@@ -30,7 +30,7 @@ module.exports = {
                         loader: 'file-loader',
                         options: {
                             outputPath: 'assets',
-                            publicPath: path.join('dist', 'assets')
+                            publicPath: 'assets'
                         }
                     }
                 ]
