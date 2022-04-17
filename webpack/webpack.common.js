@@ -47,7 +47,7 @@ module.exports = {
 
         // Generate index.html for github pages
         new HtmlWebpackPlugin({
-            filename: path.join(BASE_DIR, 'index.html'),
+            filename: path.join(DIST_DIR, 'index.html'),
             template: path.join(SRC_DIR, 'index.template.html')
         })
     ],
