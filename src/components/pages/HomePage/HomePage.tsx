@@ -15,7 +15,6 @@ import { IconBar } from '../../organisms/IconBar';
 const GithubLogo  = require('../../../assets/images/github_logo.jpg');
 const ProjectIcon  = require('../../../assets/images/project_icon.png');
 const LinkedInLogo = require('../../../assets/images/linked_in_logo.png');
-const OpenSourceLogo = require('../../../assets/images/open_source_logo.png');
 
 const NameText = styled(HeadingText)`
     text-align: center;
@@ -98,7 +97,7 @@ const HomePage = (props: any) => {
             nameAndBio = {
                 <React.Fragment>
                     <NameText>Sunit Deshpande</NameText>
-                    <BioText>Full-Stack Developer, Dublin, Ireland.</BioText>
+                    <BioText>Full-Stack Developer @Amazon</BioText>
                 </React.Fragment>
             }
 

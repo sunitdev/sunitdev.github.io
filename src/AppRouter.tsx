@@ -1,17 +1,16 @@
 import * as React from 'react';
 
-import { Router, Route } from 'react-router-dom';
-import { createHashHistory, Location } from 'history';
+import {Router, Route} from 'react-router-dom';
+import {createHashHistory, Location} from 'history';
 
 import * as ReactGA from 'react-ga';
 
-import { HomePage } from './components/pages/HomePage';
-import { ProjectPage } from './components/pages/ProjectPage';
-import { OpenSourcePage } from './components/pages/OpenSourcePage';
+import {HomePage} from './components/pages/HomePage';
+import {ProjectPage} from './components/pages/ProjectPage';
 
 
 function getURlFromLocation(location: Location): string {
-    return location.pathname + location.search
+  return location.pathname + location.search
 }
 
 // Global google analytics init
@@ -22,7 +21,7 @@ const history = createHashHistory();
 
 // Add listener for google analytics
 history.listen((location: Location, action: any) => {
-    ReactGA.pageview(getURlFromLocation(location))
+  ReactGA.pageview(getURlFromLocation(location))
 })
 
 // Send initial location
@@ -30,11 +29,10 @@ history.listen((location: Location, action: any) => {
 ReactGA.pageview(getURlFromLocation(history.location))
 
 const AppRouter = () => (
-    <Router history={history}>
-        <Route path="/" exact component={HomePage}/>
-        <Route path="/projects/" component={ProjectPage}/>
-        {/*<Route path="/open-source/" component={OpenSourcePage} />*/}
-    </Router>
+  <Router history={history}>
+    <Route path="/" exact component={HomePage}/>
+    <Route path="/projects/" component={ProjectPage}/>
+  </Router>
 );
 
-export { AppRouter }
+export {AppRouter}

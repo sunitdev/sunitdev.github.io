@@ -176,7 +176,7 @@ const ProjectCard: React.SFC<ProjectCardProps> = (props: ProjectCardProps) => {
 
                 {
                     props.project.displayURL &&
-                    <FooterText><BottomLink href={props.project.url} target="_blank">{props.project.displayURL}</BottomLink></FooterText>
+                    <FooterText><BottomLink href={props.project.displayURL} target="_blank">{props.project.displayURL}</BottomLink></FooterText>
                 }
 
             </CardBody>

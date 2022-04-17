@@ -1,18 +1,16 @@
 import axios from 'axios';
 
-import { Project } from '../../models/Project';
+import {Project} from '../../models';
 
 const PERSONAL_PROJECT_LIST_ID = '5d0c4e84976b56074e2ff245';
-
-const OPEN_SOURCE_LIST_ID = '5db8ef97b613d666e808237c';
 
 const URL_PROJECT_LIST = 'https://api.trello.com/1/lists/';
 
 // API Request Params
 const PARAM_PROJECT_LIST = {
-    fields: 'name,desc',
-    attachments: true,
-    attachment_fields: 'name,url'
+  fields: 'name,desc',
+  attachments: true,
+  attachment_fields: 'name,url'
 }
 
 // Attachment Regex
@@ -25,20 +23,14 @@ const ATTACHMENT_DISPLAY_URL_REGEX = /^display-url$/;
 /**
  * Return a promise to get project list from trello
  */
-async function getProjects(): Promise<Project[]> {
-
-    return getProjectsFromList(PERSONAL_PROJECT_LIST_ID);
+export async function getProjects(): Promise<Project[]> {
+  return getProjectsFromList(PERSONAL_PROJECT_LIST_ID);
 
 }
 
-async function getOpenSourceProjects(): Promise<Project[]> {
+export async function getProjectsFromList(listID: string): Promise<Project[]> {
 
-    return getProjectsFromList(OPEN_SOURCE_LIST_ID);
-}
-
-async function getProjectsFromList(listID: string): Promise<Project[]> {
-
-    return axios.get(`${URL_PROJECT_LIST}${listID}/cards/`, { params: PARAM_PROJECT_LIST })
+  return axios.get(`${URL_PROJECT_LIST}${listID}/cards/`, {params: PARAM_PROJECT_LIST})
     .then((response: any): Project[] => response.data.map(parseResponseToProject))
 }
 
@@ -48,41 +40,36 @@ async function getProjectsFromList(listID: string): Promise<Project[]> {
  */
 function parseResponseToProject(data: any): Project {
 
-    // Get attachments
-    let thumbnailURL, animatedGifURL, projectLink, displayURL: string;
+  // Get attachments
+  let thumbnailURL, animatedGifURL, projectLink, displayURL: string;
 
-    let technologies: string[] = [];
+  let technologies: string[] = [];
 
-    data.attachments.map((item: any)=> {
-        let name: string = item.name.toLowerCase().trim();
+  data.attachments.map((item: any) => {
+    let name: string = item.name.toLowerCase().trim();
 
-        if( ATTACHMENT_ANIMATED_GIF_REGEX.test(name) ){
-            animatedGifURL = item.url;
-        }else if( ATTACHMENT_THUMBNAIL_REGEX.test(name) ){
-            thumbnailURL = item.url;
-        }else if( ATTACHMENT_PROJECT_LINK_REGEX.test(name) ){
-            projectLink = item.url;
-        }
-        else if( ATTACHMENT_TECHNOLOGIES_REGEX.test(name) ){
-            technologies = item.url.replace('http://', '').split(',').map((item: string) => item.trim());
-        }
-        else if( ATTACHMENT_DISPLAY_URL_REGEX.test(name) ){
-            displayURL = item.url;
-        }
-    })
-
-    return {
-        title: data.name,
-        description: data.desc,
-
-        url: projectLink,
-
-        thumbnailURL,
-        animatedGifURL,
-        displayURL,
-        technologies
+    if (ATTACHMENT_ANIMATED_GIF_REGEX.test(name)) {
+      animatedGifURL = item.url;
+    } else if (ATTACHMENT_THUMBNAIL_REGEX.test(name)) {
+      thumbnailURL = item.url;
+    } else if (ATTACHMENT_PROJECT_LINK_REGEX.test(name)) {
+      projectLink = item.url;
+    } else if (ATTACHMENT_TECHNOLOGIES_REGEX.test(name)) {
+      technologies = item.url.replace('http://', '').split(',').map((item: string) => item.trim());
+    } else if (ATTACHMENT_DISPLAY_URL_REGEX.test(name)) {
+      displayURL = item.url;
     }
+  })
+
+  return {
+    title: data.name,
+    description: data.desc,
+
+    url: projectLink,
+
+    thumbnailURL,
+    animatedGifURL,
+    displayURL,
+    technologies
+  }
 }
-
-
-export { getProjects, getOpenSourceProjects }
