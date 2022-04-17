@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 📦 Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3.1.1
         with:
           node-version: '16'
 
@@ -20,7 +20,7 @@ jobs:
           npm ci
           npm run build-prod
       - name: 🚀 Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
           branch: gh-pages
           folder: dist
