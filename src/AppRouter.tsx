@@ -33,7 +33,7 @@ const AppRouter = () => (
     <Router history={history}>
         <Route path="/" exact component={HomePage}/>
         <Route path="/projects/" component={ProjectPage}/>
-        <Route path="/open-source/" component={OpenSourcePage} />
+        {/*<Route path="/open-source/" component={OpenSourcePage} />*/}
     </Router>
 );
 
