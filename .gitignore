@@ -3,3 +3,6 @@ node_modules/
 
 # IDE fiels
 .idea/
+
+# Build folder
+dist/
