@@ -4,7 +4,7 @@
   <p align="center">
     Website showcasing my Projects and Random stuff.
     <br />
-    <a href="https://sunitdeshpande.github.io/">View Demo</a>
+    <a href="https://sunitdev.github.io/">View Demo</a>
   </p>
 </p>
 
@@ -25,11 +25,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://sunitdeshpande.github.io/)
+[![Product Name Screen Shot][product-screenshot]](https://sunitdev.github.io/)
 
 This repository contains source code of my personal website. The purpose of the website is to create an online presence. And also a playground for me to experiments with different client side technologies.
 
-The website is not entirely static. The list of projects is rendered from a [Trello board](https://trello.com/b/R6NkuhCD/personal-website). This Trello board has public visibility. Thus when the React application is loaded, it calls the Trello api and get the content of the list which are then rendered as projects in the [project page](https://sunitdeshpande.github.io/#/projects/).
+The website is not entirely static. The list of projects is rendered from a [Trello board](https://trello.com/b/R6NkuhCD/personal-website). This Trello board has public visibility. Thus when the React application is loaded, it calls the Trello api and get the content of the list which are then rendered as projects in the [project page](https://sunitdev.github.io/#/projects/).
 
 
 ### Built With
@@ -57,7 +57,7 @@ Getting started with the project is simple. First clone the project and see if y
 
 1. Clone the repo
 ```sh
-git clone git@github.com:sunitdeshpande/sunitdeshpande.github.io.git
+git clone git@github.com:sunitdev/sunitdev.github.io.git
 ```
 2. Install NPM packages
 ```sh
@@ -88,18 +88,8 @@ npm run build-prod
 
 Sunit Deshpande  - sunitdeshpande1234@gmail.com
 
-Project Link: [https://github.com/sunitdeshpande/sunitdeshpande.github.io](https://github.com/sunitdeshpande/sunitdeshpande.github.io)
+Project Link: [https://github.com/sunitdev/sunitdev.github.io](https://github.com/sunitdev/sunitdev.github.io)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/sunitdeshpande/sunitdeshpande.github.io.svg?style=flat-square
-[contributors-url]: https://github.com/sunitdeshpande/sunitdeshpande.github.io/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/sunitdeshpande/sunitdeshpande.github.io.svg?style=flat-square
-[forks-url]: https://github.com/sunitdeshpande/sunitdeshpande.github.io/network/members
-[stars-shield]: https://img.shields.io/github/stars/sunitdeshpande/sunitdeshpande.github.io.svg?style=flat-square
-[stars-url]: https://github.com/sunitdeshpande/sunitdeshpande.github.io/stargazers
-[issues-shield]: https://img.shields.io/github/issues/sunitdeshpande/sunitdeshpande.github.io.svg?style=flat-square
-[issues-url]: https://github.com/sunitdeshpande/sunitdeshpande.github.io/issues
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/sunitdeshpande/
 [product-screenshot]: docs/images/screenshot_main_page.png
