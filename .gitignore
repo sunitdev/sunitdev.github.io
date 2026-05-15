@@ -1,8 +1,23 @@
-# Node Modules
+# Dependencies
 node_modules/
 
-# IDE fiels
-.idea/
+# Next.js
+.next/
+out/
 
-# Build folder
-dist/
+# Build output (Next exports here; uploaded as Pages artifact by CI, not committed)
+docs/
+
+# Env
+.env*.local
+.env
+
+# IDE
+.idea/
+.vscode/
+
+# Misc
+.DS_Store
+*.log
+*.tsbuildinfo
+next-env.d.ts

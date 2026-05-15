@@ -1,1 +1,0 @@
-export { EyeIrisComponent } from './EyeIrisComponent';

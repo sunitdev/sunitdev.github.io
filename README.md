@@ -1,95 +1,28 @@
-<p align="center">
-  <h3 align="center">Personal Website.</h3>
+# Sunit Deshpande — Personal Portfolio
 
-  <p align="center">
-    Website showcasing my Projects and Random stuff.
-    <br />
-    <a href="https://sunitdev.github.io/">View Demo</a>
-  </p>
-</p>
+Senior Software Engineer based in Ireland. This is the source for my personal portfolio website.
 
+**Live site:** https://sunitdev.github.io
 
+## About
 
-<!-- TABLE OF CONTENTS -->
-## Table of Contents
+I'm a software engineer with nearly a decade of experience building large-scale backend systems and distributed platforms. Currently at **Reddit**, working on machine-learning-powered content classification and ranking platforms that serve millions of communities. Previously at **Workday** (cloud observability), **Amazon** (European transportation network), and earlier-stage startups.
 
-- [Table of Contents](#table-of-contents)
-- [About The Project](#about-the-project)
-  - [Built With](#built-with)
-- [Getting Started](#getting-started)
-- [Installation](#installation)
-- [Building](#building)
-- [Contact](#contact)
+The site is a single-page portfolio covering:
 
+- **Experience** — a timeline of roles at Reddit, Workday, Amazon, and earlier companies, with the impact of each project.
+- **Skills** — languages, platforms, and tools I work with regularly.
+- **Projects** — interactive demos of distributed-systems concepts and open-source side projects.
+- **Education** — MSc Computer Science (Data Science) at Trinity College Dublin, BE Computer Science at University of Mumbai.
+- **Contact** — links to email, LinkedIn, GitHub, and a downloadable CV.
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+## Get in touch
 
-[![Product Name Screen Shot][product-screenshot]](https://sunitdev.github.io/)
+- **Email:** sunitdeshpande1234@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/sunitdeshpande/
+- **GitHub:** https://github.com/sunitdev
+- **Location:** Ireland, Europe
 
-This repository contains source code of my personal website. The purpose of the website is to create an online presence. And also a playground for me to experiments with different client side technologies.
+## Resume
 
-The website is not entirely static. The list of projects is rendered from a [Trello board](https://trello.com/b/R6NkuhCD/personal-website). This Trello board has public visibility. Thus when the React application is loaded, it calls the Trello api and get the content of the list which are then rendered as projects in the [project page](https://sunitdev.github.io/#/projects/).
-
-
-### Built With
-
-Following Frameworks, Libraries and tools are used in building this website.
-
-* [Trello](https://trello.com/b/R6NkuhCD/personal-website)
-* [Typescript](http://www.typescriptlang.org/)
-* [React](https://reactjs.org/)
-* [Webpack](https://webpack.js.org/)
-* [React Router](https://github.com/ReactTraining/react-router)
-* [Styled Components](https://www.styled-components.com/)
-* [Axios](https://github.com/axios/axios)
-* [Google Analytics](https://analytics.google.com/analytics/web/)
-
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-Getting started with the project is simple. First clone the project and see if you have `npm` installed in your system.
-
-
-## Installation
-
-1. Clone the repo
-```sh
-git clone git@github.com:sunitdev/sunitdev.github.io.git
-```
-2. Install NPM packages
-```sh
-npm install && npm install --only=dev
-```
-3. Start Server in development mode.
-```JS
-npm run serve.
-```
-
-## Building
-
-To build the website in development mode run.
-
-```sh
-npm run build-dev
-```
-
-To build the website in production mode run.
-
-```sh
-npm run build-prod
-```
-
-
-<!-- CONTACT -->
-## Contact
-
-Sunit Deshpande  - sunitdeshpande1234@gmail.com
-
-Project Link: [https://github.com/sunitdev/sunitdev.github.io](https://github.com/sunitdev/sunitdev.github.io)
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-[product-screenshot]: docs/images/screenshot_main_page.png
+A downloadable PDF resume is available on the live site under the "Download CV" button.

@@ -1,1 +1,0 @@
-export { EyeBar } from './EyeBar';

@@ -1,48 +1,43 @@
 {
   "name": "sunitdev.github.io",
-  "version": "1.0.0",
-  "description": "Personal Website",
-  "main": "index.js",
-  "scripts": {
-    "build-dev": "webpack --config webpack/webpack.development.js",
-    "build-prod": "webpack --config webpack/webpack.production.js",
-    "serve": "webpack-dev-server --config webpack/webpack.development.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sunitdev/sunitdev.github.io.git"
-  },
-  "author": "Sunit Deshpande",
+  "version": "3.0.0",
+  "description": "Sunit Deshpande — Personal portfolio",
+  "private": true,
+  "author": "Sunit Deshpande <sunitdeshpande1234@gmail.com>",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sunitdev/sunitdev.github.io/issues"
-  },
-  "homepage": "https://github.com/sunitdev/sunitdev.github.io#readme",
-  "devDependencies": {
-    "clean-webpack-plugin": "^3.0.0",
-    "file-loader": "^4.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "ts-loader": "^6.0.4",
-    "typescript": "^3.5.2",
-    "webpack": "^4.35.0",
-    "webpack-cli": "^3.3.5",
-    "webpack-dev-server": "^3.7.2",
-    "webpack-merge": "^4.2.1"
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@types/react": "^16.8.22",
-    "@types/react-content-loader": "^3.1.4",
-    "@types/react-dom": "^16.8.4",
-    "@types/react-router-dom": "^4.3.4",
-    "@types/react-tooltip": "^3.9.3",
-    "@types/styled-components": "^4.1.16",
-    "axios": "^0.19.0",
-    "react": "^16.8.6",
-    "react-content-loader": "^4.2.1",
-    "react-dom": "^16.8.6",
-    "react-ga": "^2.6.0",
-    "react-particles-js": "^2.6.0",
-    "react-router-dom": "^5.0.1",
-    "styled-components": "^4.3.2"
+    "@radix-ui/react-slider": "^1.2.2",
+    "framer-motion": "^11.15.0",
+    "next": "^15.1.4",
+    "next-themes": "^0.4.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@tailwindcss/typography": "^0.5.15",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.4",
+    "@types/react-dom": "^19.0.2",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^15.1.4",
+    "postcss": "^8.5.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
   }
 }
