@@ -21,8 +21,8 @@ jobs:
     env:
       UV_CACHE_VOLUME: ${{ github.workspace }}/.cache/uv
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v5
         with:
           path: .cache/uv
           key: ${{ runner.os }}-${{ runner.arch }}-uv-v1-${{ hashFiles('uv.lock', 'docker/python.Dockerfile') }}
@@ -38,14 +38,14 @@ jobs:
       BUN_CACHE_VOLUME: ${{ github.workspace }}/.cache/bun
       BLOG_BUILD_VOLUME: ${{ github.workspace }}/.cache/next
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v5
         with:
           path: .cache/bun
           key: ${{ runner.os }}-${{ runner.arch }}-bun-v1-${{ hashFiles('bun.lock', 'docker/website.Dockerfile') }}
           restore-keys: |
             ${{ runner.os }}-${{ runner.arch }}-bun-v1-
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: .cache/next/cache
           key: ${{ runner.os }}-${{ runner.arch }}-next-v1-${{ hashFiles('bun.lock') }}-${{ github.sha }}

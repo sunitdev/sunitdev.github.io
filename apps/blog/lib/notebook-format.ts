@@ -1,6 +1,10 @@
 export type NotebookText = string | string[];
 export type NotebookOutput = {
   output_type: string;
+  name?: string;
+  ename?: string;
+  evalue?: string;
+  traceback?: string[];
   text?: NotebookText;
   data?: {
     'image/svg+xml'?: NotebookText;
@@ -21,6 +25,29 @@ export type NotebookDocument = {
   metadata: Record<string, unknown>;
   cells: NotebookCell[];
 };
+
+export function cellText(value: NotebookText | undefined): string {
+  return Array.isArray(value) ? value.join('') : (value ?? '');
+}
+
+export function savedOutputImage(output: NotebookOutput): string | undefined {
+  if (output.data?.['image/svg+xml']) {
+    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(cellText(output.data['image/svg+xml']))}`;
+  }
+  if (output.data?.['image/png']) {
+    return `data:image/png;base64,${cellText(output.data['image/png'])}`;
+  }
+}
+
+export function outputText(output: NotebookOutput): string {
+  const text =
+    output.output_type === 'error'
+      ? output.traceback?.map((line) => (line.endsWith('\n') ? line : `${line}\n`)).join('') ||
+        `${output.ename ?? 'Python error'}: ${output.evalue ?? ''}`
+      : cellText(output.text ?? output.data?.['text/plain']);
+  // IPython tracebacks in saved notebooks can contain terminal colour escapes.
+  return text.replace(/\u001b\[[0-9;]*m/g, '');
+}
 
 function record(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -83,6 +110,16 @@ export function parseNotebook(text: string, label: string): NotebookDocument {
       }
       if (output.text !== undefined && !notebookText(output.text)) {
         return invalid(`cell ${index}: invalid output text`);
+      }
+      if (
+        (output.name !== undefined && typeof output.name !== 'string') ||
+        (output.ename !== undefined && typeof output.ename !== 'string') ||
+        (output.evalue !== undefined && typeof output.evalue !== 'string') ||
+        (output.traceback !== undefined &&
+          (!Array.isArray(output.traceback) ||
+            !output.traceback.every((line) => typeof line === 'string')))
+      ) {
+        return invalid(`cell ${index}: invalid stream name or error details`);
       }
       if (output.output_type === 'stream' && !notebookText(output.text)) {
         return invalid(`cell ${index}: missing stream text`);

@@ -45,7 +45,7 @@ website: ## Start the website at localhost:3000
 	$(COMPOSE) up --build website
 
 website-check: ## Check website types and lint, then build the production export
-	$(COMPOSE) run --rm --build -T website sh -c 'bun run typecheck && bun run lint && bun run build'
+	$(COMPOSE) run --rm --build -T website sh -c 'bun run typecheck && bun run lint && bun run test && bun run build'
 
 website-build: ## Export the website to apps/blog/docs
 	$(COMPOSE) run --rm --build -T website bun run build

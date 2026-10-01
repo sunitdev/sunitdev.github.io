@@ -6,7 +6,6 @@ import { Footer } from '@/components/footer';
 import { Notebook } from '@/components/notebook';
 import { posts } from '@/content/posts';
 import { readNotebook } from '@/lib/notebooks';
-import { notebookDownloadUrl } from '@/lib/notebook-format';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -34,32 +33,22 @@ export default async function Post({ params }: Props) {
     <>
       <Nav active="journal" />
       <main id="main" className="container-prose">
-        <header className="post-header">
-          <Link href="/blog/" className="journal-link">
-            ← Back to the journal
-          </Link>
-          <p className="eyebrow text-fg-muted mt-8">
-            {post.topic} / {post.label}
-          </p>
-          <h1 className="headline">{post.title}</h1>
-          <p className="description">{post.description}</p>
-          <div className="post-actions">
-            <a href={notebookDownloadUrl(post.notebook)} download className="primary-link">
-              Download Python notebook ↓
-            </a>
-          </div>
-          <p className="saved-note">
-            These are saved Python results. To run the downloaded notebook in the project
-            environment, clone{' '}
-            <a href="https://github.com/sunitdev/sunitdev.github.io" className="journal-link">
-              this repository
-            </a>
-            , run <code>make notebook</code>, and open JupyterLab at <code>localhost:8888</code>{' '}
-            using the token shown in the logs. Run <code>make</code> to see the other Docker
-            commands.
-          </p>
-        </header>
-        <Notebook cells={readNotebook(post.notebook)} figureAlt={post.previewImage?.alt} />
+        <Notebook
+          header={
+            <>
+              <Link href="/blog/" className="journal-link">
+                ← Back to the journal
+              </Link>
+              <p className="eyebrow text-fg-muted mt-8">
+                {post.topic} / {post.label}
+              </p>
+              <h1 className="headline">{post.title}</h1>
+              <p className="description">{post.description}</p>
+            </>
+          }
+          cells={readNotebook(post.notebook)}
+          figureAlt={post.previewImage?.alt}
+        />
       </main>
       <Footer />
     </>

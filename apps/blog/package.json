@@ -9,6 +9,7 @@
     "dev": "bun run notebooks:prepare && next dev",
     "build": "bun run notebooks:prepare && next build",
     "lint": "eslint .",
+    "test": "bun test lib/",
     "typecheck": "tsc --noEmit",
     "format": "prettier --ignore-path ../../.prettierignore --write .",
     "format:check": "prettier --ignore-path ../../.prettierignore --check .",

@@ -9,6 +9,7 @@
     "build": "bun run --cwd apps/blog build",
     "typecheck": "bun run --cwd apps/blog typecheck",
     "lint": "bun run --cwd apps/blog lint",
+    "test": "bun run --cwd apps/blog test",
     "notebooks:prepare": "bun run --cwd apps/blog notebooks:prepare",
     "format": "bun run --cwd apps/blog format",
     "format:check": "bun run --cwd apps/blog format:check"
