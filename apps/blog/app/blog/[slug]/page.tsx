@@ -6,10 +6,13 @@ import { Footer } from '@/components/footer';
 import { Notebook } from '@/components/notebook';
 import { posts } from '@/content/posts';
 import { readNotebook } from '@/lib/notebooks';
+import { notebookDownloadUrl } from '@/lib/notebook-format';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return posts.map((post) => ({ slug: post.slug }));
+  // Next.js 15's static exporter requires at least one dynamic-route parameter.
+  // With an empty registry this reserved, invalid post slug resolves to notFound().
+  return posts.length ? posts.map((post) => ({ slug: post.slug })) : [{ slug: '__no-posts__' }];
 }
 type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -41,13 +44,19 @@ export default async function Post({ params }: Props) {
           <h1 className="headline">{post.title}</h1>
           <p className="description">{post.description}</p>
           <div className="post-actions">
-            <a href={`/notebooks/${post.notebook}`} download className="primary-link">
+            <a href={notebookDownloadUrl(post.notebook)} download className="primary-link">
               Download Python notebook ↓
             </a>
           </div>
           <p className="saved-note">
-            These are saved Python results. Open the .ipynb in Jupyter to run the simulation, change
-            a parameter, or explore your own variation.
+            These are saved Python results. To run the downloaded notebook in the project
+            environment, clone{' '}
+            <a href="https://github.com/sunitdev/sunitdev.github.io" className="journal-link">
+              this repository
+            </a>
+            , run <code>make notebook</code>, and open JupyterLab at <code>localhost:8888</code>{' '}
+            using the token shown in the logs. Run <code>make</code> to see the other Docker
+            commands.
           </p>
         </header>
         <Notebook cells={readNotebook(post.notebook)} figureAlt={post.previewImage?.alt} />

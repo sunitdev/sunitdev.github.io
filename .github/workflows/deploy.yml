@@ -3,40 +3,72 @@ name: Build & Deploy
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  python:
+    name: Python checks
     runs-on: ubuntu-latest
+    env:
+      UV_CACHE_VOLUME: ${{ github.workspace }}/.cache/uv
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
+      - uses: actions/cache@v4
         with:
-          bun-version: latest
-      - run: bun install --frozen-lockfile
-      - run: bun run typecheck
-      - run: bun run lint
-      - run: bun run build
-      - uses: actions/configure-pages@v5
+          path: .cache/uv
+          key: ${{ runner.os }}-${{ runner.arch }}-uv-v1-${{ hashFiles('uv.lock', 'docker/python.Dockerfile') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-uv-v1-
+      - run: mkdir -p .cache/uv
+      - run: make python-check
+
+  build:
+    name: Blog checks and build
+    runs-on: ubuntu-latest
+    env:
+      BUN_CACHE_VOLUME: ${{ github.workspace }}/.cache/bun
+      BLOG_BUILD_VOLUME: ${{ github.workspace }}/.cache/next
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: .cache/bun
+          key: ${{ runner.os }}-${{ runner.arch }}-bun-v1-${{ hashFiles('bun.lock', 'docker/website.Dockerfile') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-bun-v1-
+      - uses: actions/cache@v4
+        with:
+          path: .cache/next/cache
+          key: ${{ runner.os }}-${{ runner.arch }}-next-v1-${{ hashFiles('bun.lock') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-next-v1-${{ hashFiles('bun.lock') }}-
+      - run: mkdir -p .cache/bun .cache/next
+      - run: make website-check
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
-          path: docs
+          path: apps/blog/docs
 
   deploy:
-    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: [python, build]
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/configure-pages@v5
       - id: deployment
         uses: actions/deploy-pages@v4

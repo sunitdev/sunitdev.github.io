@@ -4,6 +4,10 @@
   "workspaces": {
     "": {
       "name": "sunitdev.github.io",
+    },
+    "apps/blog": {
+      "name": "@sunit/blog",
+      "version": "3.0.0",
       "dependencies": {
         "next": "^15.1.4",
         "next-themes": "^0.4.4",
@@ -11,6 +15,7 @@
         "react-dom": "^19.0.0",
       },
       "devDependencies": {
+        "@eslint/eslintrc": "^3.3.1",
         "@tailwindcss/postcss": "^4.0.0",
         "@types/node": "^22.10.5",
         "@types/react": "^19.0.4",
@@ -155,6 +160,8 @@
     "@rtsao/scc": ["@rtsao/scc@1.1.0", "", {}, "sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g=="],
 
     "@rushstack/eslint-patch": ["@rushstack/eslint-patch@1.16.1", "", {}, "sha512-TvZbIpeKqGQQ7X0zSCvPH9riMSFQFSggnfBjFZ1mEoILW+UuXCKwOoPcgjMwiUtRqFZ8jWhPJc4um14vC6I4ag=="],
+
+    "@sunit/blog": ["@sunit/blog@workspace:apps/blog"],
 
     "@swc/helpers": ["@swc/helpers@0.5.15", "", { "dependencies": { "tslib": "^2.8.0" } }, "sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g=="],
 

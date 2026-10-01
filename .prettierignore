@@ -7,3 +7,11 @@ node_modules/
 bun.lock
 *.tsbuildinfo
 next-env.d.ts
+**/.next/
+**/.next-dev/
+**/docs/
+**/out/
+**/public/notebooks/
+.venv/
+uv.lock
+notebooks/

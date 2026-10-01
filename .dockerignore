@@ -1,0 +1,4 @@
+# Tooling images contain no repository content. Source is mounted at runtime.
+*
+!docker/
+!docker/**

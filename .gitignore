@@ -22,3 +22,16 @@ docs/
 *.log
 *.tsbuildinfo
 next-env.d.ts
+
+# Generated publication copies; sources live in notebooks/
+apps/blog/public/notebooks/
+
+# Python and notebook development
+.venv/
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.cache/
+.ipynb_checkpoints/
+*.egg-info/
+dist/

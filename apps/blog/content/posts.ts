@@ -4,7 +4,7 @@ export type Post = {
   description: string;
   topic: string;
   label: string;
-  notebook: string;
+  notebook: string; // Relative to the repository's notebooks/ directory; registry membership publishes it.
   featured: boolean;
   previewImage?: { alt: string; caption: string };
 };
@@ -26,4 +26,4 @@ export const posts: Post[] = [
   },
 ];
 
-export const featuredPost = posts.find((post) => post.featured) ?? posts[0];
+export const featuredPost: Post | undefined = posts.find((post) => post.featured) ?? posts[0];

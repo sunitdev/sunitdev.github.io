@@ -41,6 +41,7 @@ function EssayRow({ post, number }: { post: Post; number: number }) {
 export function BlogIndex() {
   return (
     <div className="blog-index">
+      {posts.length === 0 && <p className="text-fg-muted">No published notebooks yet.</p>}
       {posts.map((post, index) => (
         <EssayRow key={post.slug} post={post} number={index + 1} />
       ))}

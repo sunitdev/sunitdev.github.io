@@ -1,26 +1,18 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Post } from '@/content/posts';
+import { parseNotebook, type NotebookOutput } from './notebook-format';
 
-export type NotebookOutput = {
-  output_type: string;
-  text?: string | string[];
-  data?: Record<string, string | string[]>;
-};
-export type NotebookCell = {
-  cell_type: 'markdown' | 'code' | 'raw';
-  source: string | string[];
-  execution_count?: number | null;
-  outputs?: NotebookOutput[];
-};
+export type { NotebookCell, NotebookOutput } from './notebook-format';
 export function cellText(value: string | string[] | undefined): string {
   return Array.isArray(value) ? value.join('') : (value ?? '');
 }
 // Only registered local notebooks are read; cells are displayed, never executed by Next.js.
 export function readNotebook(filename: Post['notebook']) {
-  const notebook = JSON.parse(
+  const notebook = parseNotebook(
     readFileSync(join(process.cwd(), 'public', 'notebooks', filename), 'utf8'),
-  ) as { cells: NotebookCell[] };
+    filename,
+  );
   return notebook.cells;
 }
 

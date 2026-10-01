@@ -1,0 +1,89 @@
+name: ${COMPOSE_PROJECT_NAME:-ai-playground}
+
+x-python: &python
+  image: ${COMPOSE_PROJECT_NAME:-ai-playground}-python:dev
+  build:
+    context: .
+    dockerfile: docker/python.Dockerfile
+    args:
+      LOCAL_UID: ${LOCAL_UID:-1000}
+      LOCAL_GID: ${LOCAL_GID:-1000}
+  init: true
+  working_dir: /workspace
+  env_file:
+    - path: .env
+      required: false
+  volumes:
+    - .:/workspace
+    - python-env:/opt/venv
+    - ${UV_CACHE_VOLUME:-uv-cache}:/home/playground/.cache/uv
+
+services:
+  python:
+    <<: *python
+    command: ['uv', '--version']
+
+  python-check:
+    <<: *python
+    environment:
+      UV_SYNC_MODE: checks
+    volumes:
+      - .:/workspace
+      - python-check-env:/opt/venv
+      - ${UV_CACHE_VOLUME:-uv-cache}:/home/playground/.cache/uv
+    command: ['uv', 'run', '--no-sync', 'ruff', 'check', '.']
+
+  notebook:
+    <<: *python
+    environment:
+      UV_SYNC_MODE: notebooks
+    volumes:
+      - .:/workspace
+      - notebook-env:/opt/venv
+      - ${UV_CACHE_VOLUME:-uv-cache}:/home/playground/.cache/uv
+    ports:
+      - '127.0.0.1:${NOTEBOOK_PORT:-8888}:8888'
+    command:
+      - uv
+      - run
+      - --no-sync
+      - jupyter
+      - lab
+      - --ip=0.0.0.0
+      - --no-browser
+      - --ServerApp.root_dir=/workspace
+      - --ServerApp.default_url=/lab/tree/notebooks
+
+  website:
+    image: ${COMPOSE_PROJECT_NAME:-ai-playground}-website:dev
+    build:
+      context: .
+      dockerfile: docker/website.Dockerfile
+      args:
+        LOCAL_UID: ${LOCAL_UID:-1000}
+        LOCAL_GID: ${LOCAL_GID:-1000}
+    init: true
+    working_dir: /workspace
+    environment:
+      NEXT_TELEMETRY_DISABLED: '1'
+    ports:
+      - '127.0.0.1:${WEBSITE_PORT:-3000}:3000'
+    volumes:
+      - .:/workspace
+      - root-node-modules:/workspace/node_modules
+      - blog-node-modules:/workspace/apps/blog/node_modules
+      - ${BLOG_BUILD_VOLUME:-blog-build-cache}:/workspace/apps/blog/.next
+      - blog-dev-cache:/workspace/apps/blog/.next-dev
+      - ${BUN_CACHE_VOLUME:-bun-cache}:/home/playground/.bun/install/cache
+    command: ['bun', 'run', 'dev', '--hostname', '0.0.0.0']
+
+volumes:
+  python-env:
+  python-check-env:
+  notebook-env:
+  uv-cache:
+  root-node-modules:
+  blog-node-modules:
+  blog-build-cache:
+  blog-dev-cache:
+  bun-cache:

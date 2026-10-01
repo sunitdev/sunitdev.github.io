@@ -7,7 +7,7 @@ export default function NotFound() {
     <>
       <Nav />
       <main id="main" className="container-prose py-24">
-        <div className="font-mono-tabular text-fg-muted text-[11px] tracking-widest uppercase">
+        <div className="font-mono-tabular text-fg-muted text-[11px] uppercase tracking-widest">
           404 · not found
         </div>
         <h1 className="headline mt-5 text-5xl sm:text-7xl">That page isn't here.</h1>
