@@ -2,13 +2,13 @@ import { site } from '@/lib/site';
 
 export function Footer() {
   return (
-    <footer className="container-prose flex flex-wrap items-baseline justify-between gap-3 border-t border-[color:var(--color-border)] py-10 font-mono-tabular text-[11px] uppercase tracking-widest text-muted">
+    <footer className="journal-container journal-footer">
       <span>
-        © {new Date().getFullYear()} {site.name.toLowerCase()}
+        © {new Date().getFullYear()} {site.name} · A personal journal
       </span>
-      <span>no analytics · no popup · one engineer</span>
+      <span>Think. Experiment. Understand.</span>
       <span>
-        press <kbd className="rounded border border-[color:var(--color-border)] px-1.5 py-0.5 text-fg">?</kbd> for shortcuts
+        Press <kbd>?</kbd> for shortcuts
       </span>
     </footer>
   );

@@ -6,21 +6,19 @@ export default function NotFound() {
   return (
     <>
       <Nav />
-      <section className="container-prose py-24">
-        <div className="font-mono-tabular text-[11px] uppercase tracking-widest text-muted">
+      <main id="main" className="container-prose py-24">
+        <div className="font-mono-tabular text-fg-muted text-[11px] tracking-widest uppercase">
           404 · not found
         </div>
-        <h1 className="mt-3 text-3xl font-semibold text-fg sm:text-4xl">
-          That page isn't here.
-        </h1>
-        <p className="mt-3 text-fg-muted">
+        <h1 className="headline mt-5 text-5xl sm:text-7xl">That page isn't here.</h1>
+        <p className="text-fg-muted mt-3">
           Might have been moved or never existed.{' '}
           <Link href="/" className="text-accent underline underline-offset-4">
             Head home
           </Link>
           .
         </p>
-      </section>
+      </main>
       <Footer />
     </>
   );

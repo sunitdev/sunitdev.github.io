@@ -3,6 +3,7 @@ node_modules/
 
 # Next.js
 .next/
+.next-dev/
 out/
 
 # Build output (Next exports here; uploaded as Pages artifact by CI, not committed)

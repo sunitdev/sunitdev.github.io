@@ -3,11 +3,10 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
-const shortcuts: { keys: string[]; label: string; action?: () => void }[] = [
+const shortcuts: { keys: string[]; label: string }[] = [
   { keys: ['?'], label: 'show / hide this list' },
-  { keys: ['g', 'e'], label: 'jump to experience' },
-  { keys: ['g', 's'], label: 'jump to skills' },
-  { keys: ['g', 'c'], label: 'jump to contact' },
+  { keys: ['g', 'b'], label: 'open blog' },
+  { keys: ['g', 'a'], label: 'jump to about' },
   { keys: ['t'], label: 'toggle theme' },
 ];
 
@@ -42,20 +41,15 @@ export function ShortcutsOverlay() {
         return;
       }
       if (prefix === 'g') {
-        const map: Record<string, string> = { e: 'experience', s: 'skills', c: 'contact' };
-        const target = map[e.key];
-        if (target) {
-          document
-            .getElementById(target)
-            ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (e.key === 'b') window.location.assign('/blog/');
+        if (e.key === 'a') {
+          document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         prefix = null;
         return;
       }
       if (e.key === 't') {
-        const btn = document.querySelector<HTMLButtonElement>(
-          'button[aria-label*="theme" i]',
-        );
+        const btn = document.querySelector<HTMLButtonElement>('button[aria-label*="theme" i]');
         btn?.click();
         return;
       }
@@ -73,32 +67,30 @@ export function ShortcutsOverlay() {
       role="dialog"
       aria-label="Keyboard shortcuts"
       onClick={() => setOpen(false)}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-bg/70 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-md"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-[min(420px,90vw)] rounded-lg border border-[color:var(--color-border)] bg-bg-elev p-6 shadow-xl"
+        className="bg-bg-elev w-[min(420px,90vw)] rounded-2xl border border-[color:var(--color-border)] p-7 shadow-[0_20px_60px_rgba(0,0,0,0.25)]"
       >
-        <div className="mb-4 flex items-baseline justify-between">
-          <div className="font-mono-tabular text-[11px] uppercase tracking-widest text-muted">
-            shortcuts
-          </div>
+        <div className="mb-5 flex items-baseline justify-between">
+          <div className="text-fg text-[15px] font-semibold">Shortcuts</div>
           <button
             onClick={() => setOpen(false)}
-            className="font-mono-tabular text-[11px] uppercase tracking-widest text-fg-muted hover:text-fg"
+            className="text-fg-muted hover:text-fg text-[13px] transition-colors"
             aria-label="Close shortcuts"
           >
-            esc
+            Esc
           </button>
         </div>
-        <dl className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-2.5 text-sm">
+        <dl className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-3 text-[15px]">
           {shortcuts.map((s, i) => (
             <React.Fragment key={i}>
               <dt className="flex items-center gap-1">
                 {s.keys.map((k, j) => (
                   <kbd
                     key={j}
-                    className="rounded border border-[color:var(--color-border)] bg-bg px-1.5 py-0.5 font-mono-tabular text-[11px] text-fg"
+                    className="bg-bg-alt text-fg rounded-md border border-[color:var(--color-border)] px-1.5 py-0.5 text-[12px]"
                   >
                     {k}
                   </kbd>
