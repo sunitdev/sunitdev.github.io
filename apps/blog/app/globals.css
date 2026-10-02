@@ -420,6 +420,41 @@
   gap: 12px;
   margin-top: 24px;
 }
+.notebook-widgets {
+  --jp-layout-color0: var(--color-bg);
+  --jp-layout-color1: var(--color-bg-alt);
+  --jp-ui-font-color0: var(--color-fg);
+  --jp-ui-font-color1: var(--color-fg);
+  --jp-ui-font-color2: var(--color-fg-muted);
+  --jp-border-color1: var(--color-border);
+  --jp-content-font-color1: var(--color-fg);
+  --jp-content-font-family: var(--font-code), monospace;
+  --jp-widgets-color: var(--color-fg);
+  --jp-widgets-label-color: var(--color-fg);
+  --jp-widgets-readout-color: var(--color-fg);
+  --jp-widgets-input-color: var(--color-fg);
+  --jp-widgets-input-background-color: var(--color-bg-alt);
+  --jp-widgets-input-border-color: var(--color-border);
+  --jp-widgets-input-focus-border-color: var(--color-accent);
+  --jp-widgets-font-size: 13px;
+  --jp-widgets-slider-handle-background-color: var(--color-fg);
+  --jp-widgets-slider-handle-border-color: var(--color-border);
+  min-width: 0;
+  overflow-x: auto;
+}
+.notebook-widgets .jupyter-widgets {
+  font-family: var(--font-code), monospace;
+}
+.notebook-widgets .widget-box {
+  max-width: 100%;
+}
+.notebook-widgets .widget-label {
+  white-space: normal;
+  height: auto;
+}
+.notebook-widgets [inert] {
+  opacity: 0.6;
+}
 .notebook-buttons {
   display: flex;
   flex-wrap: wrap;

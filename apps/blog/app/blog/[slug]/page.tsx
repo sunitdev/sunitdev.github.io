@@ -7,6 +7,7 @@ import { Notebook } from '@/components/notebook';
 import { posts } from '@/content/posts';
 import { readNotebook } from '@/lib/notebooks';
 import { highlightNotebookSources } from '@/lib/notebook-highlight';
+import { notebookDownloadUrl } from '@/lib/notebook-format';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -30,7 +31,8 @@ export default async function Post({ params }: Props) {
   const { slug } = await params;
   const post = posts.find((entry) => entry.slug === slug);
   if (!post) notFound();
-  const cells = readNotebook(post.notebook);
+  const notebook = readNotebook(post.notebook);
+  const cells = notebook.cells;
   return (
     <>
       <Nav active="journal" />
@@ -46,11 +48,17 @@ export default async function Post({ params }: Props) {
               </p>
               <h1 className="headline">{post.title}</h1>
               <p className="description">{post.description}</p>
+              <div className="post-actions">
+                <a href={notebookDownloadUrl(post.notebook)} download className="primary-link">
+                  Download Python notebook ↓
+                </a>
+              </div>
             </>
           }
           cells={cells}
           highlightedSources={highlightNotebookSources(cells)}
           figureAlt={post.previewImage?.alt}
+          savedWidgetState={notebook.widgetState}
         />
       </main>
       <Footer />

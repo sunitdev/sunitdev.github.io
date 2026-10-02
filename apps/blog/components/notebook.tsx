@@ -2,12 +2,20 @@
 'use client';
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { cellText, outputText, savedOutputImage, type NotebookCell } from '@/lib/notebook-format';
+import {
+  cellText,
+  outputText,
+  savedOutputImage,
+  type NotebookCell,
+  type WidgetState,
+} from '@/lib/notebook-format';
+import { WidgetOutput } from './widget-output';
 import {
   appendOutput,
+  buildRunRequest,
   type CellRun,
   type RunnerEvent,
-  type RunRequest,
+  type WidgetRequest,
 } from '@/lib/notebook-runner';
 
 export function Notebook({
@@ -15,11 +23,13 @@ export function Notebook({
   cells,
   highlightedSources,
   figureAlt,
+  savedWidgetState,
 }: {
   header: ReactNode;
   cells: NotebookCell[];
   highlightedSources?: Record<number, string>;
   figureAlt?: string;
+  savedWidgetState?: WidgetState;
 }) {
   const [interactive, setInteractive] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -27,6 +37,14 @@ export function Notebook({
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState('Saved results.');
   const [runs, setRuns] = useState<Record<number, CellRun>>({});
+  const [widgetState, setWidgetState] = useState<WidgetState | undefined>(savedWidgetState);
+  const [widgetsLive, setWidgetsLive] = useState(false);
+  const [session, setSession] = useState(0);
+  const widgetQueueRef = useRef<Promise<void>>(Promise.resolve());
+  const widgetCompletionRef = useRef<{
+    resolve: () => void;
+    reject: (error: Error) => void;
+  } | null>(null);
   const workerRef = useRef<Worker | null>(null);
   const busyRef = useRef(false);
   const requestRef = useRef(0);
@@ -42,6 +60,8 @@ export function Notebook({
     return () => {
       workerRef.current?.terminate();
       workerRef.current = null;
+      widgetCompletionRef.current?.reject(new Error('Notebook closed.'));
+      widgetCompletionRef.current = null;
       clearLoadingTimer();
     };
   }, []);
@@ -53,9 +73,14 @@ export function Notebook({
     setRunTrigger(null);
     setLoading(false);
     setStatus(message);
+    widgetCompletionRef.current?.resolve();
+    widgetCompletionRef.current = null;
   }
 
   function fail(message: string) {
+    setWidgetsLive(false);
+    widgetCompletionRef.current?.reject(new Error(message));
+    widgetCompletionRef.current = null;
     workerRef.current?.terminate();
     workerRef.current = null;
     setRuns((previous) =>
@@ -80,6 +105,9 @@ export function Notebook({
     const id = ++requestRef.current;
     const reset = index === undefined;
     if (reset) {
+      setWidgetsLive(false);
+      setWidgetState(undefined);
+      setSession((previous) => previous + 1);
       setRuns((previous) =>
         Object.fromEntries(
           Object.entries(previous).map(([key, value]) => [key, { ...value, status: 'previous' }]),
@@ -122,6 +150,13 @@ export function Notebook({
                 },
               }));
               break;
+            case 'clear-output':
+              setRuns((previous) =>
+                previous[event.index]
+                  ? { ...previous, [event.index]: { ...previous[event.index], outputs: [] } }
+                  : previous,
+              );
+              break;
             case 'output':
               setRuns((previous) => {
                 const current = previous[event.index];
@@ -144,11 +179,15 @@ export function Notebook({
                 },
               }));
               break;
+            case 'widgets':
+              setWidgetState(event.state);
+              setWidgetsLive(true);
+              break;
             case 'done':
               finish(
                 event.success
                   ? 'Execution completed.'
-                  : 'Execution stopped on a Python error. If this cell needs earlier variables, use Run all.',
+                  : 'Execution stopped on a Python error. Use Run all to reconnect widgets or restore variables.',
               );
               break;
             case 'error':
@@ -159,16 +198,7 @@ export function Notebook({
           }
         };
       }
-      const request: RunRequest = {
-        type: 'run',
-        id,
-        reset,
-        cells: cells.flatMap((cell, cellIndex) =>
-          cell.cell_type === 'code' && (reset || index === cellIndex)
-            ? [{ index: cellIndex, source: cellText(cell.source) }]
-            : [],
-        ),
-      };
+      const request = buildRunRequest(id, cells, index);
       loadingTimer.current = setTimeout(() => {
         fail('Loading Python timed out. Check your connection and click Run to retry.');
       }, 90_000);
@@ -178,7 +208,44 @@ export function Notebook({
     }
   }
 
+  function sendWidget(
+    modelId: string,
+    data: Record<string, unknown>,
+    buffers: number[][],
+  ): Promise<void> {
+    const operation = widgetQueueRef.current
+      .catch(() => {})
+      .then(
+        () =>
+          new Promise<void>((resolve, reject) => {
+            if (!workerRef.current || busyRef.current) {
+              reject(new Error('Python session is unavailable. Use Run all to reconnect widgets.'));
+              return;
+            }
+            widgetCompletionRef.current = { resolve, reject };
+            busyRef.current = true;
+            setBusy(true);
+            setStatus('Updating notebook widgets…');
+            const request: WidgetRequest = {
+              type: 'widget',
+              id: ++requestRef.current,
+              modelId,
+              data,
+              buffers,
+            };
+            workerRef.current.postMessage(request);
+          }),
+      );
+    widgetQueueRef.current = operation;
+    return operation;
+  }
+
   function stop() {
+    setWidgetsLive(false);
+    widgetCompletionRef.current?.reject(
+      new Error('Python stopped. Use Run all to reconnect widgets.'),
+    );
+    widgetCompletionRef.current = null;
     workerRef.current?.terminate();
     workerRef.current = null;
     setRuns((previous) =>
@@ -284,6 +351,7 @@ export function Notebook({
                   </pre>
                   {outputs.map((output, outputIndex) => {
                     const image = savedOutputImage(output);
+                    const widget = output.data?.['application/vnd.jupyter.widget-view+json'];
                     return (
                       <div
                         key={outputIndex}
@@ -296,7 +364,18 @@ export function Notebook({
                           .filter(Boolean)
                           .join(' ')}
                       >
-                        {image ? (
+                        {widget ? (
+                          <WidgetOutput
+                            key={`${session}-${widget.model_id}`}
+                            modelId={widget.model_id}
+                            state={
+                              widgetState?.state[widget.model_id] ? widgetState : savedWidgetState
+                            }
+                            live={widgetsLive && !!widgetState?.state[widget.model_id]}
+                            busy={busy}
+                            onSend={sendWidget}
+                          />
+                        ) : image ? (
                           <img
                             src={image}
                             alt={figureAlt ?? 'Figure generated by this Python cell'}

@@ -16,7 +16,7 @@ NOTEBOOK ?=
 PYTHON_WEB_PORT ?= 8000
 CONTAINER_PORT ?= 8000
 
-.PHONY: help setup docker-build notebook notebook-run notebooks-prepare website website-check website-build \
+.PHONY: help setup docker-build notebook notebook-run notebook-check notebooks-prepare website website-check website-build \
 	python-check check cli python-web python-shell website-shell uv bun format format-check stop clean
 
 help: ## Show commands and usage
@@ -38,6 +38,9 @@ notebook-run: ## Execute and save a selected notebook: NOTEBOOK=notebooks/exampl
 	@test -n "$(NOTEBOOK)" || { printf 'Usage: make notebook-run NOTEBOOK=notebooks/example.ipynb\n' >&2; exit 2; }
 	$(COMPOSE) run --rm --build -T notebook uv run --no-sync jupyter nbconvert --to notebook --execute --inplace "$(NOTEBOOK)"
 
+notebook-check: ## Verify notebook widget values, callbacks, validation, and output rendering
+	$(COMPOSE) run --rm --build -T notebook uv run --no-sync python apps/blog/scripts/test-notebook-widgets.py
+
 notebooks-prepare: ## Refresh published notebook downloads while the website is running
 	$(COMPOSE) run --rm --build -T website bun run notebooks:prepare
 
@@ -53,7 +56,7 @@ website-build: ## Export the website to apps/blog/docs
 python-check: ## Check Python lint and formatting
 	$(COMPOSE) run --rm --build -T python-check sh -c 'uv run --no-sync ruff check . && uv run --no-sync ruff format --check .'
 
-check: python-check website-check ## Run Python and website checks in Docker
+check: python-check notebook-check website-check ## Run Python, notebook, and website checks in Docker
 
 cli: ## Run a Python workspace app: APP=my-cli CMD=my-cli ARGS="--help"
 	@test -n "$(APP)" || { printf 'Usage: make cli APP=my-cli CMD=my-cli ARGS="--help"\nAdd a Python app under apps/ first.\n' >&2; exit 2; }

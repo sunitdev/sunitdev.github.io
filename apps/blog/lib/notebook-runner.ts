@@ -1,4 +1,9 @@
-import type { NotebookOutput } from './notebook-format';
+import {
+  cellText,
+  type NotebookCell,
+  type NotebookOutput,
+  type WidgetState,
+} from './notebook-format';
 
 export type RunRequest = {
   type: 'run';
@@ -7,8 +12,32 @@ export type RunRequest = {
   cells: { index: number; source: string }[];
 };
 
+export function buildRunRequest(id: number, cells: NotebookCell[], index?: number): RunRequest {
+  const reset = index === undefined;
+  return {
+    type: 'run',
+    id,
+    reset,
+    cells: cells.flatMap((cell, cellIndex) =>
+      cell.cell_type === 'code' && (reset || index === cellIndex)
+        ? [{ index: cellIndex, source: cellText(cell.source) }]
+        : [],
+    ),
+  };
+}
+
+export type WidgetRequest = {
+  type: 'widget';
+  id: number;
+  modelId: string;
+  data: Record<string, unknown>;
+  buffers: number[][];
+};
+
 export type RunnerEvent = { id: number } & (
   | { type: 'loading' }
+  | { type: 'clear-output'; index: number; wait: boolean }
+  | { type: 'widgets'; state: WidgetState }
   | { type: 'cell-start'; index: number; executionCount: number }
   | { type: 'output'; index: number; output: NotebookOutput }
   | { type: 'cell-end'; index: number; success: boolean }

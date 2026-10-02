@@ -30,6 +30,7 @@ jobs:
             ${{ runner.os }}-${{ runner.arch }}-uv-v1-
       - run: mkdir -p .cache/uv
       - run: make python-check
+      - run: make notebook-check
 
   build:
     name: Blog checks and build

@@ -18,7 +18,7 @@ ai-algorithms = { workspace = true }
 
 [dependency-groups]
 dev = ["ruff>=0.14,<1"]
-notebooks = ["jupyterlab>=4.4,<5", "ipykernel>=7,<8"]
+notebooks = ["jupyterlab>=4.4,<5", "ipykernel>=7,<8", "ipywidgets>=8.1,<9"]
 
 [tool.ruff]
 target-version = "py314"

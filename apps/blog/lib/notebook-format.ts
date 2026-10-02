@@ -1,3 +1,7 @@
+import type { HTMLManager } from '@jupyter-widgets/html-manager';
+
+export type WidgetState = Parameters<HTMLManager['set_state']>[0];
+
 export type NotebookText = string | string[];
 export type NotebookOutput = {
   output_type: string;
@@ -7,6 +11,11 @@ export type NotebookOutput = {
   traceback?: string[];
   text?: NotebookText;
   data?: {
+    'application/vnd.jupyter.widget-view+json'?: {
+      model_id: string;
+      version_major: number;
+      version_minor: number;
+    };
     'image/svg+xml'?: NotebookText;
     'image/png'?: NotebookText;
     'text/plain'?: NotebookText;
@@ -16,6 +25,7 @@ export type NotebookOutput = {
 export type NotebookCell = {
   cell_type: 'markdown' | 'code' | 'raw';
   source: NotebookText;
+  metadata?: { tags?: string[]; [key: string]: unknown };
   execution_count?: number | null;
   outputs?: NotebookOutput[];
 };
@@ -61,7 +71,7 @@ function notebookText(value: unknown): value is NotebookText {
 }
 
 // Validate the format and the fields consumed by the lightweight renderer.
-// Rich MIME outputs may exist, but only text, PNG, and SVG are displayed.
+// Ordinary cell outputs display text, PNG, SVG, and standard Jupyter widget views.
 export function parseNotebook(text: string, label: string): NotebookDocument {
   let value: unknown;
   try {
@@ -82,6 +92,7 @@ export function parseNotebook(text: string, label: string): NotebookDocument {
   ) {
     return invalid('expected nbformat 4, metadata, and cells');
   }
+  notebookWidgetState(value.metadata);
   for (const [index, cell] of value.cells.entries()) {
     if (
       !record(cell) ||
@@ -90,6 +101,13 @@ export function parseNotebook(text: string, label: string): NotebookDocument {
       !record(cell.metadata)
     ) {
       return invalid(`cell ${index}: invalid type, source, or metadata`);
+    }
+    if (
+      cell.metadata.tags !== undefined &&
+      (!Array.isArray(cell.metadata.tags) ||
+        !cell.metadata.tags.every((tag) => typeof tag === 'string'))
+    ) {
+      return invalid(`cell ${index}: invalid metadata tags`);
     }
     if (cell.cell_type !== 'code') continue;
     if (
@@ -132,6 +150,16 @@ export function parseNotebook(text: string, label: string): NotebookDocument {
       }
       if (output.data !== undefined) {
         if (!record(output.data)) return invalid(`cell ${index}: invalid MIME output data`);
+        const widget = output.data['application/vnd.jupyter.widget-view+json'];
+        if (
+          widget !== undefined &&
+          (!record(widget) ||
+            typeof widget.model_id !== 'string' ||
+            widget.version_major !== 2 ||
+            !Number.isInteger(widget.version_minor))
+        ) {
+          return invalid(`cell ${index}: invalid widget view`);
+        }
         for (const mime of ['text/plain', 'image/png', 'image/svg+xml']) {
           if (output.data[mime] !== undefined && !notebookText(output.data[mime])) {
             return invalid(`cell ${index}: invalid ${mime} output`);
@@ -145,4 +173,31 @@ export function parseNotebook(text: string, label: string): NotebookDocument {
 
 export function notebookDownloadUrl(filename: string): string {
   return `/notebooks/${filename.split('/').map(encodeURIComponent).join('/')}`;
+}
+
+export function notebookWidgetState(metadata: Record<string, unknown>): WidgetState | undefined {
+  const widgets = metadata.widgets;
+  if (!record(widgets)) return;
+  const state = widgets['application/vnd.jupyter.widget-state+json'];
+  if (state === undefined) return;
+  if (
+    !record(state) ||
+    state.version_major !== 2 ||
+    !Number.isInteger(state.version_minor) ||
+    !record(state.state)
+  ) {
+    throw new Error('Invalid notebook widget state');
+  }
+  for (const model of Object.values(state.state)) {
+    if (
+      !record(model) ||
+      typeof model.model_name !== 'string' ||
+      typeof model.model_module !== 'string' ||
+      typeof model.model_module_version !== 'string' ||
+      !record(model.state)
+    ) {
+      throw new Error('Invalid notebook widget model');
+    }
+  }
+  return state as unknown as WidgetState;
 }

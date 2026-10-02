@@ -1,10 +1,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { appendOutput } from './notebook-runner';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { appendOutput, buildRunRequest } from './notebook-runner';
+import { prepareNotebooks } from '../scripts/notebook-publication';
 import {
   outputText,
   parseNotebook,
+  notebookWidgetState,
   savedOutputImage,
   type NotebookOutput,
 } from './notebook-format';
@@ -57,7 +63,7 @@ test('published text and SVG parse, and malformed error details are rejected', (
     'π example',
   );
   const code = notebook.cells.filter((cell) => cell.cell_type === 'code');
-  assert.equal(code.length, 3);
+  assert.equal(code.length, 4);
   assert.match(outputText(code[0].outputs![0]), /Estimate of pi: 3.126000/);
   assert.ok(savedOutputImage(code[1].outputs![0]));
   const malformed = structuredClone(notebook);
@@ -68,4 +74,66 @@ test('published text and SVG parse, and malformed error details are rejected', (
     () => parseNotebook(JSON.stringify(malformed), 'broken'),
     /invalid stream name or error details/,
   );
+});
+
+test('every notebook code cell runs unchanged, including widget definitions', () => {
+  const notebook = parseNotebook(
+    readFileSync(new URL('../../../notebooks/estimating-pi.ipynb', import.meta.url), 'utf8'),
+    'π',
+  );
+  const request = buildRunRequest(9, notebook.cells);
+  assert.equal(request.reset, true);
+  assert.deepEqual(
+    request.cells.map((cell) => cell.index),
+    [1, 3, 5, 6],
+  );
+  assert.match(request.cells.at(-1)!.source, /import ipywidgets/);
+  assert.equal('parameters' in request, false);
+  const single = buildRunRequest(10, notebook.cells, 6);
+  assert.equal(single.reset, false);
+  assert.equal(single.cells[0].source, request.cells.at(-1)!.source);
+});
+
+test('widget view and state survive parsing, malformed views and tags fail validation', () => {
+  const notebook = parseNotebook(
+    readFileSync(new URL('../../../notebooks/estimating-pi.ipynb', import.meta.url), 'utf8'),
+    'π',
+  );
+  assert.ok(notebookWidgetState(notebook.metadata));
+  const widget =
+    notebook.cells.at(-1)!.outputs![0].data!['application/vnd.jupyter.widget-view+json']!;
+  assert.ok(notebookWidgetState(notebook.metadata)!.state[widget.model_id]);
+  assert.ok(widget.model_id);
+  notebook.cells[0].metadata = { tags: [123 as unknown as string] };
+  assert.throws(() => parseNotebook(JSON.stringify(notebook), 'bad tags'), /invalid metadata tags/);
+  notebook.cells[0].metadata = {};
+  widget.model_id = 123 as unknown as string;
+  assert.throws(() => parseNotebook(JSON.stringify(notebook), 'bad view'), /invalid widget view/);
+  assert.throws(
+    () =>
+      notebookWidgetState({
+        widgets: { 'application/vnd.jupyter.widget-state+json': { version_major: 2, state: [] } },
+      }),
+    /Invalid notebook widget state/,
+  );
+});
+
+test('publication preserves Jupyter controls in the downloadable notebook', async () => {
+  const outputDirectory = await mkdtemp(join(tmpdir(), 'pi-publication-'));
+  try {
+    await prepareNotebooks({
+      posts: [{ slug: 'estimating-pi', notebook: 'estimating-pi.ipynb' }],
+      sourceDirectory: fileURLToPath(new URL('../../../notebooks', import.meta.url)),
+      outputDirectory,
+    });
+    const source = readFileSync(
+      new URL('../../../notebooks/estimating-pi.ipynb', import.meta.url),
+      'utf8',
+    );
+    const published = await readFile(join(outputDirectory, 'estimating-pi.ipynb'), 'utf8');
+    assert.equal(published, source);
+    assert.ok(notebookWidgetState(parseNotebook(published, 'download').metadata));
+  } finally {
+    await rm(outputDirectory, { recursive: true, force: true });
+  }
 });
