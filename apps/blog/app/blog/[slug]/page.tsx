@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Nav } from '@/components/nav';
-import { Footer } from '@/components/footer';
+import { SiteShell } from '@/components/site-shell';
 import { Notebook } from '@/components/notebook';
 import { posts } from '@/content/posts';
 import { readNotebook } from '@/lib/notebooks';
@@ -34,34 +33,30 @@ export default async function Post({ params }: Props) {
   const notebook = readNotebook(post.notebook);
   const cells = notebook.cells;
   return (
-    <>
-      <Nav active="journal" />
-      <main id="main" className="container-prose">
-        <Notebook
-          header={
-            <>
-              <Link href="/blog/" className="journal-link">
-                ← Back to the journal
-              </Link>
-              <p className="eyebrow text-fg-muted mt-8">
-                {post.topic} / {post.label}
-              </p>
-              <h1 className="headline">{post.title}</h1>
-              <p className="description">{post.description}</p>
-              <div className="post-actions">
-                <a href={notebookDownloadUrl(post.notebook)} download className="primary-link">
-                  Download Python notebook ↓
-                </a>
-              </div>
-            </>
-          }
-          cells={cells}
-          highlightedSources={highlightNotebookSources(cells)}
-          figureAlt={post.previewImage?.alt}
-          savedWidgetState={notebook.widgetState}
-        />
-      </main>
-      <Footer />
-    </>
+    <SiteShell active="journal" mainClassName="container-prose">
+      <Notebook
+        header={
+          <>
+            <Link href="/blog/" className="journal-link">
+              ← Back to the journal
+            </Link>
+            <p className="eyebrow text-fg-muted mt-8">
+              {post.topic} / {post.label}
+            </p>
+            <h1 className="headline">{post.title}</h1>
+            <p className="description">{post.description}</p>
+            <div className="post-actions">
+              <a href={notebookDownloadUrl(post.notebook)} download className="primary-link">
+                Download Python notebook ↓
+              </a>
+            </div>
+          </>
+        }
+        cells={cells}
+        highlightedSources={highlightNotebookSources(cells)}
+        figureAlt={post.previewImage?.alt}
+        savedWidgetState={notebook.widgetState}
+      />
+    </SiteShell>
   );
 }

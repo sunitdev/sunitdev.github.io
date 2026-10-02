@@ -17,7 +17,9 @@ const nextConfig = {
 };
 
 // Keep the preview cache separate so it cannot replace the Pages export.
-export default (phase) => ({
+const config = (phase) => ({
   ...nextConfig,
   distDir: phase === PHASE_DEVELOPMENT_SERVER ? '.next-dev' : 'docs',
 });
+
+export default config;

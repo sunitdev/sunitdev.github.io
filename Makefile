@@ -17,7 +17,7 @@ PYTHON_WEB_PORT ?= 8000
 CONTAINER_PORT ?= 8000
 
 .PHONY: help setup docker-build notebook notebook-run notebook-check notebooks-prepare website website-check website-build \
-	python-check check cli python-web python-shell website-shell uv bun format format-check stop clean
+	python-check check cli python-web python-shell website-shell uv bun format format-check stop clean clean-artifacts
 
 help: ## Show commands and usage
 	@awk 'BEGIN { FS = ":.*## "; print "Run everything through make (Docker must be running):\n" } /^[a-zA-Z_-]+:.*## / { printf "  %-18s %s\n", $$1, $$2 }' "$(REPO_ROOT)/Makefile"
@@ -93,3 +93,9 @@ stop: ## Stop and remove this project's containers; keep dependency volumes
 
 clean: ## Stop containers and delete this project's Docker dependency/cache volumes
 	$(COMPOSE) down --volumes --remove-orphans
+
+clean-artifacts: ## Remove generated website files from the host; stop dev servers first
+	rm -rf -- "$(REPO_ROOT)/.next" "$(REPO_ROOT)/.next-dev" "$(REPO_ROOT)/docs" "$(REPO_ROOT)/out" \
+		"$(REPO_ROOT)/apps/blog/.next" "$(REPO_ROOT)/apps/blog/.next-dev" \
+		"$(REPO_ROOT)/apps/blog/docs" "$(REPO_ROOT)/apps/blog/out"
+	rm -f -- "$(REPO_ROOT)/apps/blog/tsconfig.tsbuildinfo" "$(REPO_ROOT)/apps/blog/next-env.d.ts"

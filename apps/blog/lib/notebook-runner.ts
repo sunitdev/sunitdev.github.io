@@ -58,9 +58,10 @@ export function appendOutput(outputs: NotebookOutput[], output: NotebookOutput):
     output.output_type === 'stream' &&
     last.name === output.name
   ) {
-    const text = (value: NotebookOutput['text']) =>
-      Array.isArray(value) ? value.join('') : (value ?? '');
-    return [...outputs.slice(0, -1), { ...last, text: text(last.text) + text(output.text) }];
+    return [
+      ...outputs.slice(0, -1),
+      { ...last, text: cellText(last.text) + cellText(output.text) },
+    ];
   }
   return [...outputs, output];
 }

@@ -70,8 +70,6 @@ function notebookText(value: unknown): value is NotebookText {
   );
 }
 
-// Validate the format and the fields consumed by the lightweight renderer.
-// Ordinary cell outputs display text, PNG, SVG, and standard Jupyter widget views.
 export function parseNotebook(text: string, label: string): NotebookDocument {
   let value: unknown;
   try {

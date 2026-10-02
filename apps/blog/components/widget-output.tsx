@@ -9,7 +9,6 @@ type WidgetComm = NonNullable<WidgetModel['comm']>;
 
 type Send = (modelId: string, data: Record<string, unknown>, buffers: number[][]) => Promise<void>;
 
-// The official manager renders all standard ipywidgets. Python owns their state and callbacks.
 export function WidgetOutput({
   modelId,
   state,

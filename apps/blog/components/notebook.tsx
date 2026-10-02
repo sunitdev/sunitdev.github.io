@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   cellText,
   outputText,
@@ -50,21 +50,28 @@ export function Notebook({
   const requestRef = useRef(0);
   const loadingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  function clearLoadingTimer() {
+  const clearLoadingTimer = useCallback(() => {
     if (loadingTimer.current !== null) clearTimeout(loadingTimer.current);
     loadingTimer.current = null;
-  }
+  }, []);
+
+  const disposeWorker = useCallback(
+    (message: string) => {
+      workerRef.current?.terminate();
+      workerRef.current = null;
+      widgetCompletionRef.current?.reject(new Error(message));
+      widgetCompletionRef.current = null;
+      clearLoadingTimer();
+    },
+    [clearLoadingTimer],
+  );
 
   useEffect(() => {
     setInteractive(true);
     return () => {
-      workerRef.current?.terminate();
-      workerRef.current = null;
-      widgetCompletionRef.current?.reject(new Error('Notebook closed.'));
-      widgetCompletionRef.current = null;
-      clearLoadingTimer();
+      disposeWorker('Notebook closed.');
     };
-  }, []);
+  }, [disposeWorker]);
 
   function finish(message: string) {
     clearLoadingTimer();
@@ -79,10 +86,7 @@ export function Notebook({
 
   function fail(message: string) {
     setWidgetsLive(false);
-    widgetCompletionRef.current?.reject(new Error(message));
-    widgetCompletionRef.current = null;
-    workerRef.current?.terminate();
-    workerRef.current = null;
+    disposeWorker(message);
     setRuns((previous) =>
       Object.fromEntries(
         Object.entries(previous).map(([index, run]) => [
@@ -242,12 +246,7 @@ export function Notebook({
 
   function stop() {
     setWidgetsLive(false);
-    widgetCompletionRef.current?.reject(
-      new Error('Python stopped. Use Run all to reconnect widgets.'),
-    );
-    widgetCompletionRef.current = null;
-    workerRef.current?.terminate();
-    workerRef.current = null;
+    disposeWorker('Python stopped. Use Run all to reconnect widgets.');
     setRuns((previous) =>
       Object.fromEntries(
         Object.entries(previous).map(([index, value]) => [

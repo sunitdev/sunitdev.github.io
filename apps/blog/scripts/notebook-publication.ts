@@ -2,6 +2,7 @@ import { mkdir, readFile, realpath, rm, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, relative, resolve, sep } from 'node:path';
 import type { Post } from '../content/posts';
 import { parseNotebook } from '../lib/notebook-format';
+import { findNotebookPreview } from '../lib/notebook-preview';
 
 function inside(root: string, path: string): boolean {
   const pathFromRoot = relative(root, path);
@@ -59,8 +60,15 @@ export async function prepareNotebooks({
     } catch (error) {
       throw new Error(`Cannot read notebook ${filename}: ${(error as Error).message}`);
     }
-    parseNotebook(bytes.toString('utf8'), filename);
+    const notebook = parseNotebook(bytes.toString('utf8'), filename);
     selected.push({ filename, bytes });
+    const preview = findNotebookPreview(notebook.cells);
+    if (preview) {
+      selected.push({
+        filename: `${filename}.preview.${preview.extension}`,
+        bytes: Buffer.from(preview.content, preview.extension === 'png' ? 'base64' : 'utf8'),
+      });
+    }
   }
 
   // This directory is generated and contains only the current explicit allowlist.
@@ -71,5 +79,5 @@ export async function prepareNotebooks({
     await mkdir(dirname(target), { recursive: true });
     await writeFile(target, bytes);
   }
-  return selected.map(({ filename }) => filename);
+  return posts.map(({ notebook }) => notebook);
 }
