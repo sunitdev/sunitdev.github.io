@@ -13,10 +13,12 @@ import {
 export function Notebook({
   header,
   cells,
+  highlightedSources,
   figureAlt,
 }: {
   header: ReactNode;
   cells: NotebookCell[];
+  highlightedSources?: Record<number, string>;
   figureAlt?: string;
 }) {
   const [interactive, setInteractive] = useState(false);
@@ -270,7 +272,15 @@ export function Notebook({
                     </button>
                   </div>
                   <pre className="code-source">
-                    <code>{cellText(cell.source)}</code>
+                    {highlightedSources?.[index] !== undefined ? (
+                      // Only markup generated from escaped source by the server highlighter.
+                      <code
+                        className="language-python"
+                        dangerouslySetInnerHTML={{ __html: highlightedSources[index] }}
+                      />
+                    ) : (
+                      <code className="language-python">{cellText(cell.source)}</code>
+                    )}
                   </pre>
                   {outputs.map((output, outputIndex) => {
                     const image = savedOutputImage(output);

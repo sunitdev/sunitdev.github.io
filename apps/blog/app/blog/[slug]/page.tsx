@@ -6,6 +6,7 @@ import { Footer } from '@/components/footer';
 import { Notebook } from '@/components/notebook';
 import { posts } from '@/content/posts';
 import { readNotebook } from '@/lib/notebooks';
+import { highlightNotebookSources } from '@/lib/notebook-highlight';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -29,6 +30,7 @@ export default async function Post({ params }: Props) {
   const { slug } = await params;
   const post = posts.find((entry) => entry.slug === slug);
   if (!post) notFound();
+  const cells = readNotebook(post.notebook);
   return (
     <>
       <Nav active="journal" />
@@ -46,7 +48,8 @@ export default async function Post({ params }: Props) {
               <p className="description">{post.description}</p>
             </>
           }
-          cells={readNotebook(post.notebook)}
+          cells={cells}
+          highlightedSources={highlightNotebookSources(cells)}
           figureAlt={post.previewImage?.alt}
         />
       </main>

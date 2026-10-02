@@ -488,6 +488,23 @@
   border-left: 3px solid #c85c31;
 }
 .code-source {
+  --syntax-string: #286644;
+  --syntax-number: #a4471e;
+  --syntax-title: #6c3ca0;
+  --syntax-variable: #315a6b;
+  --syntax-property: #6d5b22;
+  --syntax-builtin: #006a7a;
+  --syntax-literal: #974675;
+  --syntax-operator: #5f526f;
+  --syntax-meta: #89502f;
+  --syntax-keyword: var(--color-accent);
+  --syntax-comment: var(--color-fg-muted);
+  --syntax-punctuation: var(--color-fg-muted);
+  --syntax-subst: var(--color-fg);
+  --syntax-type: var(--syntax-title);
+  --syntax-class: var(--syntax-title);
+  --syntax-params: var(--syntax-variable);
+  --syntax-language: var(--syntax-literal);
   background: var(--color-bg-alt);
   margin: 0;
   padding: 20px;
@@ -495,6 +512,82 @@
   font-family: var(--font-code), monospace;
   font-size: 12px;
   line-height: 1.9;
+}
+.dark .code-source {
+  /* Atom One Dark by Daniel Gamage, from highlight.js/styles/atom-one-dark.css. */
+  --syntax-string: #98c379;
+  --syntax-number: #d19a66;
+  --syntax-title: #61aeee;
+  --syntax-variable: #d19a66;
+  --syntax-property: #d19a66;
+  --syntax-builtin: #e6c07b;
+  --syntax-literal: #56b6c2;
+  --syntax-operator: #abb2bf;
+  --syntax-meta: #61aeee;
+  --syntax-keyword: #c678dd;
+  --syntax-comment: #5c6370;
+  --syntax-punctuation: #abb2bf;
+  --syntax-subst: #e06c75;
+  --syntax-type: #d19a66;
+  --syntax-class: #e6c07b;
+  --syntax-params: #abb2bf;
+  --syntax-language: #d19a66;
+  background: #282c34;
+  color: #abb2bf;
+}
+.code-source .hljs-keyword {
+  color: var(--syntax-keyword);
+}
+.code-source .hljs-built_in {
+  color: var(--syntax-builtin);
+}
+.code-source .hljs-literal {
+  color: var(--syntax-literal);
+}
+.code-source .hljs-variable.language_ {
+  color: var(--syntax-language);
+}
+.code-source .hljs-meta {
+  color: var(--syntax-meta);
+}
+.code-source .hljs-variable {
+  color: var(--syntax-variable);
+}
+.code-source .hljs-params {
+  color: var(--syntax-params);
+}
+.code-source .hljs-property {
+  color: var(--syntax-property);
+}
+.code-source .hljs-operator {
+  color: var(--syntax-operator);
+}
+.code-source .hljs-punctuation {
+  color: var(--syntax-punctuation);
+}
+.code-source .hljs-string {
+  color: var(--syntax-string);
+}
+.code-source .hljs-number {
+  color: var(--syntax-number);
+}
+.code-source .hljs-title {
+  color: var(--syntax-title);
+}
+.code-source .hljs-title.class_ {
+  color: var(--syntax-class);
+}
+.code-source .hljs-type {
+  color: var(--syntax-type);
+}
+.code-source .hljs-comment {
+  color: var(--syntax-comment);
+}
+.dark .code-source .hljs-comment {
+  font-style: italic;
+}
+.code-source .hljs-subst {
+  color: var(--syntax-subst);
 }
 .cell-output {
   border-top: 1px solid var(--color-border);
